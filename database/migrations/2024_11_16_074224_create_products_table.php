@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100);
             $table->double('price');
+            $table->text('long_desc');
             $table->string('main_image_url', 255)->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->dateTime('imported_date')->nullable();

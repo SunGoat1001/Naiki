@@ -67,21 +67,21 @@
         <div class="absolute w-full h-full overflow-hidden">
             <div id="wrapper" class="w-full h-full">
                 <div class="flex w-full h-full">
-                    <img src="./asset/img/homepage/Nike-Air-Jordan-1-Female.jpg" alt=""
+                    <img src="/asset/img/homepage/Nike-Air-Jordan-1-Female.jpg" alt=""
                         class="w-1/2 object-cover max-lg:object-cover max-xl:object-cover max-sm:w-full">
-                    <img src="./asset/img/homepage/Nike-Air-Jordan-1-Male.jpg" alt=""
+                    <img src="/asset/img/homepage/Nike-Air-Jordan-1-Male.jpg" alt=""
                         class="w1/2 max-lg:object-cover max-xl:object-cover max-sm:hidden">
                 </div>
                 <div class="flex w-full h-full">
-                    <img src="./asset/img/homepage/NikeXanh1.jpg" alt=""
+                    <img src="/asset/img/homepage/NikeXanh1.jpg" alt=""
                         class="w-1/2 max-lg:object-cover max-xl:object-cover max-sm:w-full">
-                    <img src="./asset/img/homepage/NikeXanh2.jpg" alt=""
+                    <img src="/asset/img/homepage/NikeXanh2.jpg" alt=""
                         class="w-1/2 max-lg:object-cover max-xl:object-cover max-sm:hidden">
                 </div>
                 <div class="flex w-full h-full">
-                    <img src="./asset/img/homepage/NikeTrang.avif" alt=""
+                    <img src="/asset/img/homepage/NikeTrang.avif" alt=""
                         class="w-1/2 object-cover max-lg:object-cover max-sm:w-full">
-                    <img src="./asset/img/homepage/NikeTrang2.avif" alt=""
+                    <img src="/asset/img/homepage/NikeTrang2.avif" alt=""
                         class="w-1/2 object-cover max-lg:object-cover max-sm:hidden">
                 </div>
             </div>
@@ -93,10 +93,10 @@
             <p class="w-3/5 text-xl">Every world is on your feet</p>
             <div class="absolute bottom-20 flex justify-between w-[250px]">
                 <div class="text-2xl underline underline-offset-4">
-                    <a href="./women">WOMEN</a>
+                    <a href="/women">WOMEN</a>
                 </div>
                 <div class="px-7 text-2xl underline underline-offset-4">
-                    <a href="./man">MAN</a>
+                    <a href="/man">MAN</a>
                 </div>
             </div>
         </div>
@@ -117,7 +117,7 @@
                     <span class="text-center">White midsole, green outsole for added traction and durability.</span>
                 </div>
             </div>
-            <img src="./asset/img/homepage/ShoesLIMITED.png" alt=""
+            <img src="/asset/img/homepage/ShoesLIMITED.png" alt=""
                 class="w-[35rem] h-[25rem] max-lg:w-[31rem] max-sm:ml-14 max-[431px]:ml-0 max-[431px]:h-[22rem]">
             <div class="mt-16 max-sm:hidden">
                 <div class="w-64 h-40 flex flex-col justify-center items-center mb-20">
@@ -148,12 +148,12 @@
                 </button>
                 <ul class="image-list flex overflow-x-auto  space-x-4 overflow-hidden">
                     @foreach ($products as $product)
-                        <a href="./details">
+                        <a href="/details/{{ $product->id }}">
                             <li class="shadow-lg">
                                 <div class="relative w-[400px] h-[500px] flex flex-col bg-white">
                                     <img src="{{ $product->main_image_url }}" alt=""
                                         class="h-[400px] object-cover">
-                                    <img src="./asset/img/product/Shoes/air-jordan-1-low-shoes-nGLZR9 (4).jpg"
+                                    <img src="/asset/img/product/Shoes/air-jordan-1-low-shoes-nGLZR9 (4).jpg"
                                         alt=""
                                         class="w-full h-[400px] object-cover absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300">
                                     <span class="font-bold text-xl m-2">{{ $product->name }}</span>
@@ -179,8 +179,8 @@
     <!-- Women, Man -->
     <div class="relative w-full h-[800px]">
         <div class="absolute flex w-full h-full bg-cover">
-            <img src="./asset/img/homepage/Women.jpg" alt="" class="w-1/2 object-cover max-sm:hidden">
-            <img src="./asset/img/homepage/Men.jpg" alt="" class="w-1/2 object-cover max-sm:w-full">
+            <img src="/asset/img/homepage/Women.jpg" alt="" class="w-1/2 object-cover max-sm:hidden">
+            <img src="/asset/img/homepage/Men.jpg" alt="" class="w-1/2 object-cover max-sm:w-full">
         </div>
         <div class="absolute inset-0 bg-black opacity-20"></div>
         <div class="relative z-10 text-center text-white flex flex-col items-center justify-center h-full space-y-4">
@@ -204,14 +204,14 @@
             <span class="text-center text-3xl font-semibold">WHAT OUR CUSTOMERS SAYS</span>
             <div class="flex space-x-6 mt-5 max-sm:flex-col max-sm:space-x-0">
                 <div class="flex flex-col w-80 h-72 bg-white rounded-lg space-y-3 mt-6 shadow-lg max-lg:w-[19rem]">
-                    <img src="./asset/img/homepage/People2.jpg" alt=""
+                    <img src="/asset/img/homepage/People2.jpg" alt=""
                         class="w-16 h-16 rounded-full mt-4 ml-4">
                     <span class="mt-4 ml-4 text-lg font-semibold">Stephen Curry</span>
                     <span class="mt-4 ml-4">Nike's products truly impress me with their quality and unique design. Will
                         definitely continue to support!</span>
                 </div>
                 <div class="flex flex-col w-80 h-72 bg-white rounded-lg space-y-3 mt-6 shadow-lg max-lg:w-[19rem]">
-                    <img src="./asset/img/homepage/People1.jpg" alt=""
+                    <img src="/asset/img/homepage/People1.jpg" alt=""
                         class="w-16 h-16 rounded-full mt-4 ml-4">
                     <span class="mt-4 ml-4 text-lg font-semibold">Emily Johnson</span>
                     <span class="mt-4 ml-4">Nike's customer service is excellent. Friendly and helpful staff assisted
@@ -219,7 +219,7 @@
                         in finding the perfect pair of shoes.</span>
                 </div>
                 <div class="flex flex-col w-80 h-72 bg-white rounded-lg space-y-3 mt-6 shadow-lg max-lg:w-[19rem]">
-                    <img src="./asset/img/homepage/People3.jpg" alt=""
+                    <img src="/asset/img/homepage/People3.jpg" alt=""
                         class="w-16 h-16 rounded-full mt-4 ml-4">
                     <span class="mt-4 ml-4 text-lg font-semibold">Alex Parker</span>
                     <span class="mt-4 ml-4">Every time I purchase Nike shoes, it's a fantastic experience.
