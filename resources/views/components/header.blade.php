@@ -1,13 +1,14 @@
 <header class="bg-white fixed top-0 w-full z-50 shadow-sm">
     <div class="col flex justify-between items-center h-16">
-        <a href="./">
-            <div class="bg-[url('./asset/img/LogoNAV.png')] bg-cover h-16 w-16" aria-label="Home"></div>
+        <a href="/">
+            <div class="bg-[url('/asset/img/LogoNAV.png')] bg-cover h-16 w-16" aria-label="Home"></div>
         </a>
+        
         <nav class="flex text-sm font-bold max-sm:hidden">
-            <a href="./women" class="p-5 hover:underline underline-offset-4 focus:underline">WOMAN</a>
-            <a href="./man" class="p-5 hover:underline underline-offset-4 focus:underline">MAN</a>
-            <a href="./newarrivals" class="p-5 hover:underline underline-offset-4 focus:underline">NEW ARRIVALS</a>
-            <a href="./contact" class="p-5 hover:underline underline-offset-4 focus:underline">CONTACT</a>
+            <a href="/women" class="p-5 hover:underline underline-offset-4 focus:underline">WOMAN</a>
+            <a href="/man" class="p-5 hover:underline underline-offset-4 focus:underline">MAN</a>
+            <a href="/newarrivals" class="p-5 hover:underline underline-offset-4 focus:underline">NEW ARRIVALS</a>
+            <a href="/contact" class="p-5 hover:underline underline-offset-4 focus:underline">CONTACT</a>
         </nav>
 
         <!-- CART -->
@@ -60,7 +61,7 @@
                     <a href="#" class="p-5 hover:underline underline-offset-4 focus:underline">WOMAN</a>
                     <a href="#" class="p-5 hover:underline underline-offset-4 focus:underline">MAN</a>
                     <a href="#" class="p-5 hover:underline underline-offset-4 focus:underline">NEW ARRIVALS</a>
-                    <a href="./contact" class="p-5 hover:underline underline-offset-4 focus:underline">CONTACT</a>
+                    <a href="/contact" class="p-5 hover:underline underline-offset-4 focus:underline">CONTACT</a>
                 </nav>
             </div>
         </div>
@@ -85,174 +86,11 @@
     }
 </script>
 
-<!-- AUTO CALC -->
-<script>
-    let cartCount = 0;
-
-    function addToCart() {
-        // Cập nhât con số trên giỏ hàng
-        cartCount++;
-        document.getElementById("cart-count").innerText = cartCount;
-
-        // Lấy thông tin sản phẩm
-        const productTitle = document.querySelector(".product-title").innerText;
-        const productPrice = document
-            .querySelector(".price")
-            .innerText.split("\n")[1]
-            .trim();
-        const selectedColorElement =
-            document.querySelector(".color.bg-red-500") ||
-            document.querySelector(".color-selected");
-        const selectedColor = selectedColorElement ?
-            selectedColorElement.getAttribute("data-color") :
-            "";
-        const selectedSizeElement = document.querySelector(
-            'input[name="size"]:checked'
-        );
-        const selectedSize = selectedSizeElement ? selectedSizeElement.value : "";
-
-        // Kiểm tra nếu không chọn màu hoặc kích thước
-        if (!selectedColor || !selectedSize) {
-            alert("Please select a color and size.");
-            return;
-        }
-
-        // Tạo phần tử mới cho sản phẩm trong giỏ hàng
-        const productContainer = document.getElementById("productContainer");
-        const productElement = document.createElement("div");
-        productElement.classList.add(
-            "relative",
-            "flex",
-            "w-full",
-            "h-[8.25rem]",
-            "mt-5",
-            "border-b-2",
-            "border-gray-200"
-        );
-
-        productElement.innerHTML = `
-      <img src="https://i.pinimg.com/564x/82/7e/3a/827e3aacabbdc670a6760c1b2fe776e8.jpg" alt="" class="w-[6.5rem] h-[6.5rem] mt-3 object-cover">
-      <div class="flex flex-col mt-3 ml-3">
-        <span class="font-semibold text-xl">${productTitle}</span>
-        <span>Color: ${selectedColor}</span>
-        <span>Size: ${selectedSize}</span>
-        <button id="deleteProductBtn" class="absolute right-0 top-3 text-2xl" onclick="deleteProduct(this)"><i class='bx bx-x'></i></button>
-        <span>Quantity: <input type="number" id="quantity" name="quantity" min="1" max="99" value="1" class="h-7 w-10" onchange="updateTotal()"></span>
-        <span class="absolute right-0 bottom-3" id="productPrice">${productPrice}</span>
-      </div>
-    `;
-
-        // Thêm phần tử mới vào giỏ hàng
-        productContainer.appendChild(productElement);
-
-        // Cập nhật tổng giá trị giỏ hàng
-        updateTotal();
-
-        // Mở giỏ hàng
-        toggleDrawer();
-    }
-
-    function deleteProduct(element) {
-        // Xóa sản phẩm khỏi giỏ hàng
-        const productElement = element.parentElement.parentElement;
-        productElement.remove();
-
-        if (cartCount > 0) {
-            cartCount--;
-            updateCartCount();
-        }
-
-        // Cập nhật tổng giá trị giỏ hàng
-        updateTotal();
-    }
-
-    function updateCartCount() {
-        document.getElementById("cart-count").innerText = cartCount;
-    }
-
-    function updateTotal() {
-        const productElements = document.querySelectorAll(
-            "#productContainer > div"
-        );
-        let totalPrice = 0;
-
-        productElements.forEach((element) => {
-            const priceElement = element.querySelector("#productPrice");
-            const quantityElement = element.querySelector("#quantity");
-
-            if (priceElement && quantityElement) {
-                const price = parseFloat(
-                    priceElement.innerText.replace("$", "").trim()
-                );
-                const quantity = parseInt(quantityElement.value);
-                totalPrice += price * quantity;
-            }
-        });
-
-        // Hiển thị tổng giá trị
-        document.getElementById("subtotal").innerText = `$${totalPrice.toFixed(
-            2
-        )}`;
-    }
-</script>
-
 <!-- REMOVE PRODUCT FROM CART -->
 <script>
     var deleteButton = document.getElementById("deleteProductBtn");
     deleteButton.addEventListener("click", function() {
         var productContainer = document.getElementById("productContainer");
         productContainer.remove();
-    });
-</script>
-
-<!-- CHANGE IMAGE WHEN MOVEOVER -->
-<script>
-    const thumbnails = document.querySelectorAll(".thumbnail img");
-    const mainImage = document.querySelector(".main-image img");
-
-    thumbnails.forEach((thumbnail) => {
-        thumbnail.addEventListener("mouseover", function() {
-            mainImage.src = this.src;
-
-            thumbnails.forEach((thumb) => (thumb.style.border = "none"));
-
-            this.style.border = "solid 3px #33ccff";
-        });
-    });
-</script>
-
-<!-- NAV TAB DESCRIBE + REVIEWS -->
-<script>
-    const tabs = document.querySelectorAll(".tab_btn");
-    const all_content = document.querySelectorAll(".content");
-    const line = document.querySelector(".line");
-
-    tabs.forEach((tab, index) => {
-        tab.addEventListener("click", (e) => {
-            tabs.forEach((tab) => {
-                tab.classList.remove("active");
-            });
-            tab.classList.add("active");
-
-            line.style.width = tab.offsetWidth + "px";
-            line.style.left = tab.offsetLeft + "px";
-
-            all_content.forEach((content) => {
-                content.classList.remove("active");
-            });
-            all_content[index].classList.add("active");
-        });
-    });
-
-    window.addEventListener("resize", () => {
-        const activeTab = document.querySelector(".tab_btn.active");
-        line.style.width = activeTab.offsetWidth + "px";
-        line.style.left = activeTab.offsetLeft + "px";
-    });
-
-    document.addEventListener("DOMContentLoaded", () => {
-        const activeTab = document.querySelector(".tab_btn.active");
-        line.style.width = activeTab.offsetWidth + "px";
-        line.style.left = activeTab.offsetLeft + "px";
     });
 </script>

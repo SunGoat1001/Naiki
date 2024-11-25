@@ -1,7 +1,7 @@
 <footer class="w-full h-96 max-[431px]:h-auto bg-black">
     <div class="col flex max-[431px]:flex-col h-[332px] max-[431px]:h-full">
         <div class="max-[431px]:w-full w-2/4 mt-10">
-            <img src="./asset/img/LogoFooter.png" alt="Logo" class="w-28 h-28 max-[431px]:ml-[150px]">
+            <img src="/asset/img/LogoFooter.png" alt="Logo" class="w-28 h-28 max-[431px]:ml-[150px]">
             <ul class="text-[#CFCFCF] space-y-0 mt-1 max-[431px]:text-center">
                 <li>Address: 158A Le loi, Thanh Khe, Da Nang</li>
                 <li>Company: Naiki</li>
