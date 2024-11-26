@@ -25,7 +25,7 @@ class NewArrivalsController extends Controller
 
         return view('newarrivals', [
             'products' => $products,
-            'categories' => $categories
+            'categories' => $categories,
         ]);
     }
 }

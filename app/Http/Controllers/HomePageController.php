@@ -11,7 +11,7 @@ class HomePageController extends Controller
         $products = Product::all();
 
         return view('homepage', [
-            'products' => $products
+            'products' => $products,
         ]);
     }
 }

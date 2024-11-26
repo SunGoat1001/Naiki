@@ -10,4 +10,4 @@ Route::get('/', [HomePageController::class, 'index']);
 Route::get('/newarrivals', [NewArrivalsController::class, 'index'])
     ->name('newarrivals.index');
 
-    Route::get('/details/{id}', [DetailsController::class, 'show'])->name('details.show');
+Route::get('/details/{id}', [DetailsController::class, 'show'])->name('details.show');

@@ -65,7 +65,8 @@
             </div>
 
             <!-- ADD TO CART BUTTON -->
-            <button class="w-full p-4 mt-6 bg-black text-white font-bold rounded-lg transition ease-in-out delay-150 hover:bg-indigo-500 duration-300"
+            <button
+                class="w-full p-4 mt-6 bg-black text-white font-bold rounded-lg transition ease-in-out delay-150 hover:bg-indigo-500 duration-300"
                 onclick="addToCart()">
                 Add to Cart
             </button>
@@ -85,7 +86,7 @@
                 class="line absolute top-14 left-0 h-1 bg-indigo-500 rounded-lg w-24 transition-all duration-300 ease-in-out">
             </div>
         </div>
-        <div id="description" class="content block shadow-lg rounded-lg mx-6 my-0 p-6">
+        <div id="description" class="content active block shadow-lg rounded-lg mx-6 my-0 p-6">
             <p class="mb-4">
                 <b class="text-xl font-bold">ALWAYS FRESH.</b>
             </p>
@@ -110,7 +111,7 @@
                 <li class="mb-2">Country/Region of Origin: Vietnam, Indonesia</li>
             </ul>
         </div>
-        <div id="reviews" class="content hidden shadow-lg rounded-lg mx-6 my-0">
+        <div id="reviews" class="content active hidden shadow-lg rounded-lg mx-6 my-0">
             <article class="p-4 mb-6 border-b border-gray-200 last:border-b-0">
                 <div class="text-yellow-300 mb-2">
                     <i class="bx bxs-star"></i>
@@ -134,7 +135,7 @@
             </article>
         </div>
     </div>
-    
+
 
     <div class="max-w-[1160px] mx-auto p-12">
         <h4 class="text-3xl font-semibold mb-3">You also might like</h4>

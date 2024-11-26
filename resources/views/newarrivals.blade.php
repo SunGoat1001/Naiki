@@ -181,12 +181,45 @@
                     <div class="flex flex-col">
                         <span class="text-xl font-bold mt-2">{{ $product->name }}</span>
                         <span class="text-gray-500">Men's / Women's Shoes</span>
-                        <a href="/details/{{ $product->id }}"><span class="underline text-gray-500">More color</span></a>
+                        <a href="/details/{{ $product->id }}"><span class="underline text-gray-500">More
+                                color</span></a>
                         <span class="font-semibold text-lg mt-3">${{ $product->price }}</span>
                     </div>
                 </div>
             @endforeach
         </div>
     </section>
-    
+
+    <!-- Filter hidden -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const filterContainer = document.getElementById('filterContainer');
+            const filterPanel = document.getElementById('filterPanel');
+            const filterText = document.getElementById('filterText');
+
+            filterContainer.addEventListener('click', function() {
+                if (filterPanel.style.display === 'none') {
+                    filterPanel.style.display = 'block';
+                    filterText.textContent = 'HIDE FILTERS';
+                } else {
+                    filterPanel.style.display = 'none';
+                    filterText.textContent = 'SHOW FILTERS';
+                }
+            });
+        });
+    </script>
+
+    <!-- Accordion hidden -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleButtons = document.querySelectorAll('.toggle-button');
+
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    content.classList.toggle('hidden');
+                });
+            });
+        });
+    </script>
 </x-layout>
