@@ -8,6 +8,7 @@
     <title>@yield('title', 'TienTuyenShoes')</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.tailwindcss.com"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
