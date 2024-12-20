@@ -1,22 +1,36 @@
 <header class="bg-white fixed top-0 w-full z-50 shadow-sm">
     <div class="col flex justify-between items-center h-16">
-        <a href="/">
-            <div class="bg-[url('/asset/img/LogoNAV.png')] bg-cover h-16 w-16" aria-label="Home"></div>
-        </a>
 
-        <nav class="flex text-sm font-bold max-sm:hidden">
-            <a href="/women" class="p-5 hover:underline underline-offset-4 focus:underline">WOMAN</a>
-            <a href="/man" class="p-5 hover:underline underline-offset-4 focus:underline">MAN</a>
-            <a href="/newarrivals" class="p-5 hover:underline underline-offset-4 focus:underline">NEW ARRIVALS</a>
-            <a href="/contact" class="p-5 hover:underline underline-offset-4 focus:underline">CONTACT</a>
-        </nav>
+        <div>
+            <a href="/">
+                <div class="bg-[url('/asset/img/LogoNAV.png')] bg-[{{ url('url', [asset('img/LogoNAV.png')]) }}] bg-cover h-16 w-16"
+                    aria-label="Home">
+                    HOME
+                </div>
+            </a>
+        </div>
 
-        <!-- CART -->
-        <button class="drawer-toggle p-3 text-2xl" onclick="toggleDrawer()">
-            <i class="bx bx-shopping-bag"></i>
-            <span id="cart-count"
-                class="absolute top-1 right-10 bg-black text-white rounded-full w-6 h-6 flex items-center justify-center text-sm">0</span>
-        </button>
+        <div>
+            <nav class="flex text-sm font-bold max-sm:hidden">
+                <a href="/women" class="p-5 hover:underline underline-offset-4 focus:underline">WOMAN</a>
+                <a href="/man" class="p-5 hover:underline underline-offset-4 focus:underline">MAN</a>
+                <a href="/newarrivals" class="p-5 hover:underline underline-offset-4 focus:underline">NEW ARRIVALS</a>
+                <a href="/contact" class="p-5 hover:underline underline-offset-4 focus:underline">CONTACT</a>
+            </nav>
+        </div>
+
+        <div>
+            <!-- SIGN IN -->
+            <a href="/login">
+                sign in
+            </a>
+            <!-- CART -->
+            <button class="drawer-toggle p-3 text-2xl" onclick="toggleDrawer()">
+                <i class="bx bx-shopping-bag"></i>
+                <span id="cart-count"
+                    class="absolute top-1 right-10 bg-black text-white rounded-full w-6 h-6 flex items-center justify-center text-sm">0</span>
+            </button>
+        </div>
 
         <!-- CART DRAWER -->
         <div id="overlay"
