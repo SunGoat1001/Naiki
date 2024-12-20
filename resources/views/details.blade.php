@@ -56,9 +56,9 @@
                 <div class="flex flex-wrap gap-2">
                     @foreach ([37.5, 38, 38.5, 39, 40, 41, 42, 43, 44] as $size)
                         <label class="flex items-center cursor-pointer">
-                            <input class="hidden" type="radio" name="size" value="{{ $size }}" />
+                            <input class="hidden peer" type="radio" name="size" value="{{ $size }}" />
                             <span
-                                class="flex justify-center items-center w-20 h-10 border-2 rounded-lg">{{ $size }}</span>
+                                class="flex justify-center items-center w-20 h-10 border-2 rounded-lg peer-checked:bg-indigo-500 peer-checked:text-white">{{ $size }}</span>
                         </label>
                     @endforeach
                 </div>
