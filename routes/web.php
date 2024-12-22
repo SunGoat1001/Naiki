@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DetailsController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\NewArrivalsController;
@@ -23,4 +22,8 @@ Route::get('/details/{id}', [DetailsController::class, 'show']);
 
 Route::get('/newarrivals', [NewArrivalsController::class, 'index'])->name('new-arrivals.index');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/settings', [App\Http\Controllers\ProfileController::class, 'edit'])->name('settings.edit');
+    Route::delete('/settings', [App\Http\Controllers\ProfileController::class, 'destroy'])->name('settings.destroy');
+});
