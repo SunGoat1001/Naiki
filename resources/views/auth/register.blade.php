@@ -20,11 +20,17 @@
 
             <div class="flex flex-col">
                 {{-- line attribute --}}
-                <div class="pb-2 pt-2">
-
-                    <label>{{ __('Name') }}</label>
-                    <x-text-input name="name" value="{{ old('name') }}"
-                        placeholder="{{ __('Please input this field') }}" />
+                <div class="flex">
+                    <div class="pb-2 pt-2">
+                        <label>{{ __('First name') }}</label>
+                        <x-text-input name="firstname" value="{{ old('firstname') }}"
+                            placeholder="{{ __('Please input this field') }}" />
+                    </div>
+                    <div class="pb-2 pt-2">
+                        <label>{{ __('Last name') }}</label>
+                        <x-text-input name="lastname" value="{{ old('lastname') }}"
+                            placeholder="{{ __('Please input this field') }}" />
+                    </div>
                 </div>
 
                 {{-- line attribute --}}
@@ -52,9 +58,9 @@
                 </div>
             </div>
 
-            <div
-                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                <button type="submit" class="text-base font-normal">
+            <div class="pt-2">
+                <button type="submit"
+                    class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     {{ __('Register') }}
                 </button>
             </div>
