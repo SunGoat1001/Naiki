@@ -1,4 +1,4 @@
-@props(['name', 'show' => false, 'maxWidth' => '2xl'])
+@props(['name', 'show' => false, 'maxWidth' => 'md'])
 
 @php
     $maxWidth = [
@@ -10,15 +10,20 @@
     ][$maxWidth];
 @endphp
 
-<div id="modal-{{ $name }}" class="fixed inset-0 overflow-y-auto px-4 py-6 sm:px-0 z-50"
-    style="display: {{ $show ? 'block' : 'none' }};">
-    <div class="fixed inset-0 transform transition-all">
-        <div class="absolute inset-0 bg-gray-500 dark:bg-gray-600 opacity-75"></div>
+<div id="modal-{{ $name }}" class="fixed inset-0 z-50 overflow-y-auto px-4 py-6 sm:px-0"
+    style="display: {{ $show ? 'block' : 'none' }}" role="dialog" aria-modal="true"
+    aria-labelledby="modal-title-{{ $name }}">
+    <!-- Backdrop -->
+    <div class="fixed inset-0 transform transition-opacity duration-300 ease-in-out">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
     </div>
 
-    <div
-        class="mb-6 bg-surface rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full {{ $maxWidth }} sm:mx-auto">
-        {{ $slot }}
+    <!-- Modal Content -->
+    <div class="relative min-h-full flex items-center justify-center">
+        <div class="relative w-full {{ $maxWidth }} bg-white rounded-lg shadow-lg transform transition-all duration-300 ease-in-out"
+            @click.away="handleShow(false)">
+            {{ $slot }}
+        </div>
     </div>
 </div>
 
@@ -26,29 +31,80 @@
     document.addEventListener('DOMContentLoaded', () => {
         const modal = document.getElementById('modal-{{ $name }}');
         let focusables = [];
+        let previouslyFocusedElement = null;
 
         function getFocusables() {
-            const selector =
-                'a, button, input:not([type="hidden"]), textarea, select, details, [tabindex]:not([tabindex="-1"])';
-            return [...modal.querySelectorAll(selector)].filter(el => !el.hasAttribute('disabled'));
+            const selector = [
+                'a[href]',
+                'button:not([disabled])',
+                'input:not([disabled]):not([type="hidden"])',
+                'select:not([disabled])',
+                'textarea:not([disabled])',
+                '[tabindex]:not([tabindex="-1"])',
+                '[contenteditable]'
+            ].join(',');
+
+            return [...modal.querySelectorAll(selector)]
+                .filter(el => !el.hasAttribute('disabled') && getComputedStyle(el).display !== 'none');
         }
 
         function handleShow(value) {
             if (value) {
+                // Store the currently focused element
+                previouslyFocusedElement = document.activeElement;
+
+                // Show modal
                 modal.style.display = 'block';
-                document.body.classList.add('overflow-y-hidden');
+                document.body.classList.add('overflow-hidden');
+
+                // Set focus on first focusable element
                 @if ($attributes->has('focusable'))
                     setTimeout(() => {
                         focusables = getFocusables();
                         if (focusables.length) focusables[0].focus();
-                    }, 100);
+                    }, 50);
                 @endif
+
+                // Trigger open animation
+                requestAnimationFrame(() => {
+                    modal.querySelector('.bg-black\\/50').classList.add('opacity-100');
+                    modal.querySelector('.relative.w-full').classList.add('translate-y-0',
+                        'opacity-100');
+                });
             } else {
-                modal.style.display = 'none';
-                document.body.classList.remove('overflow-y-hidden');
+                // Trigger close animation
+                modal.querySelector('.bg-black\\/50').classList.remove('opacity-100');
+                modal.querySelector('.relative.w-full').classList.remove('translate-y-0', 'opacity-100');
+
+                // Hide modal after animation
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.classList.remove('overflow-hidden');
+
+                    // Restore focus to previous element
+                    if (previouslyFocusedElement) {
+                        previouslyFocusedElement.focus();
+                    }
+                }, 300);
             }
         }
 
+        function handleTab(e) {
+            e.preventDefault();
+            focusables = getFocusables();
+            const currentIndex = focusables.indexOf(document.activeElement);
+
+            let nextIndex;
+            if (e.shiftKey) {
+                nextIndex = currentIndex > 0 ? currentIndex - 1 : focusables.length - 1;
+            } else {
+                nextIndex = currentIndex < focusables.length - 1 ? currentIndex + 1 : 0;
+            }
+
+            focusables[nextIndex]?.focus();
+        }
+
+        // Event Listeners
         window.addEventListener('open-modal', (event) => {
             if (event.detail === '{{ $name }}') {
                 handleShow(true);
@@ -56,22 +112,13 @@
         });
 
         window.addEventListener('close', () => handleShow(false));
+
         window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') handleShow(false);
-
-            if (e.key === 'Tab') {
-                e.preventDefault();
-                focusables = getFocusables();
-                const currentIndex = focusables.indexOf(document.activeElement);
-
-                if (e.shiftKey) {
-                    // Move backwards
-                    const prevIndex = Math.max(0, currentIndex - 1);
-                    focusables[prevIndex]?.focus();
-                } else {
-                    // Move forwards
-                    const nextIndex = (currentIndex + 1) % focusables.length;
-                    focusables[nextIndex]?.focus();
+            if (modal.style.display === 'block') {
+                if (e.key === 'Escape') {
+                    handleShow(false);
+                } else if (e.key === 'Tab') {
+                    handleTab(e);
                 }
             }
         });

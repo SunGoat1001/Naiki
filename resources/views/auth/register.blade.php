@@ -1,76 +1,89 @@
 @vite('resources/css/app.css')
 
-<section class="flex items-center justify-center min-h-screen bg-gray-50">
-    <div class="w-full max-w-md px-8 py-6 bg-white rounded-lg shadow-md">
+<section class="flex items-center justify-center min-h-screen bg-white">
+    <div class="w-full max-w-md px-8 py-2 shadow-lg rounded-lg">
         <!-- Logo -->
-        <div class="flex justify-center mb-6">
-            <div class="w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center">
-                <span class="text-white font-bold text-2xl">🌊</span>
+        <div class="flex justify-center mb-4">
+            <div class="w-10 h-10 bg-gray-900 rounded-full flex items-center justify-center">
+                <span class="text-white text-xl">🌊</span>
             </div>
         </div>
 
         <!-- Title -->
-        <h2 class="text-2xl font-semibold text-center text-gray-800 mb-6">
+        <h2 class="text-xl font-medium text-center text-gray-900 mb-4">
             {{ __('Create your account') }}
         </h2>
 
         <!-- Form -->
-        <form action="{{ route('register') }}" method="POST">
+        <form action="{{ route('register') }}" method="POST" class="space-y-6">
             @csrf
 
-            <div class="flex flex-col">
-                {{-- line attribute --}}
-                <div class="flex">
-                    <div class="pb-2 pt-2">
-                        <label>{{ __('First name') }}</label>
-                        <x-text-input name="firstname" value="{{ old('firstname') }}"
-                            placeholder="{{ __('Please input this field') }}" />
-                    </div>
-                    <div class="pb-2 pt-2">
-                        <label>{{ __('Last name') }}</label>
-                        <x-text-input name="lastname" value="{{ old('lastname') }}"
-                            placeholder="{{ __('Please input this field') }}" />
-                    </div>
+            <!-- Name Fields -->
+            <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700">
+                        {{ __('First name') }}
+                    </label>
+                    <x-text-input name="firstname" value="{{ old('firstname') }}"
+                        class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
+                        placeholder="{{ __('First name') }}" />
                 </div>
 
-                {{-- line attribute --}}
-                <div class="pb-2 pt-2">
-
-                    <label>{{ __('Email') }}</label>
-                    <x-text-input name="email" value="{{ old('email') }}"
-                        placeholder="{{ __('Please input this field') }}" />
-                </div>
-
-                {{-- line attribute --}}
-                <div class="pb-2 pt-2">
-
-                    <label>{{ __('Password') }}</label>
-                    <x-text-input type="password" name="password" value="{{ old('password') }}"
-                        placeholder="{{ __('Please input this field') }}" />
-                </div>
-
-                {{-- line attribute --}}
-                <div class="pb-2 pt-2">
-                    <label>{{ __('Confirm Password') }}</label>
-                    <x-text-input type="password" name="password_confirmation"
-                        value="{{ old('password_confirmation') }}"
-                        placeholder="{{ __('Please input this field') }}" />
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700">
+                        {{ __('Last name') }}
+                    </label>
+                    <x-text-input name="lastname" value="{{ old('lastname') }}"
+                        class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
+                        placeholder="{{ __('Last name') }}" />
                 </div>
             </div>
 
-            <div class="pt-2">
+            <!-- Email Field -->
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700">
+                    {{ __('Email') }}
+                </label>
+                <x-text-input name="email" value="{{ old('email') }}"
+                    class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
+                    placeholder="{{ __('Enter your email') }}" />
+            </div>
+
+            <!-- Password Field -->
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700">
+                    {{ __('Password') }}
+                </label>
+                <x-text-input type="password" name="password" value="{{ old('password') }}"
+                    class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
+                    placeholder="{{ __('Create a password') }}" />
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700">
+                    {{ __('Confirm Password') }}
+                </label>
+                <x-text-input type="password" name="password_confirmation" value="{{ old('password_confirmation') }}"
+                    class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
+                    placeholder="{{ __('Confirm your password') }}" />
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-4">
                 <button type="submit"
-                    class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    {{ __('Register') }}
+                    class="w-full px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-all">
+                    {{ __('Create account') }}
                 </button>
             </div>
-
         </form>
 
         <!-- Footer -->
-        <p class="mt-6 text-center text-sm text-gray-500">
+        <p class="mt-8 text-center text-sm text-gray-500">
             {{ __('Already have an account?') }}
-            <a href="/login" class="font-medium text-indigo-600 hover:text-indigo-500">{{ __('Sign in here') }}</a>
+            <a href="/login" class="text-gray-900 hover:underline transition-colors">
+                {{ __('Sign in here') }}
+            </a>
         </p>
     </div>
 </section>

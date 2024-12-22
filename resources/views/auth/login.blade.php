@@ -1,64 +1,62 @@
 @vite('resources/css/app.css')
 
-<section class="flex items-center justify-center min-h-screen bg-gray-50">
-    <div class="w-full max-w-md px-8 py-6 bg-white rounded-lg shadow-md">
+<section class="flex items-center justify-center min-h-screen bg-white">
+    <div class="w-full max-w-md px-8 py-12 shadow-lg rounded-lg">
         <!-- Logo -->
-        <div class="flex justify-center mb-6">
-            <div class="w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center">
-                <!-- Replace with your logo icon -->
-                <span class="text-white font-bold text-2xl">🌊</span>
+        <div class="flex justify-center mb-8">
+            <div class="w-10 h-10 bg-gray-900 rounded-full flex items-center justify-center">
+                <span class="text-white text-xl">🌊</span>
             </div>
         </div>
 
         <!-- Title -->
-        <h2 class="text-2xl font-semibold text-center text-gray-800">
+        <h2 class="text-xl font-medium text-center text-gray-900 mb-8">
             {{ __('Sign in to your account') }}
         </h2>
 
-        <form action="{{ route('login') }}" method="POST">
+        <form action="{{ route('login') }}" method="POST" class="space-y-6">
             @csrf
 
-            <div class="flex flex-col">
-                {{-- line attribute --}}
-                <div class="buttonpb-6 pt-6 items-center border-b border-on-surface-900">
-                    <div class="col-span-1 text-on-surface-500 font-bold">
-                        <label>{{ __('Email') }}</label>
-                    </div>
-                    <div class="col-span-4 text-on-surface-600">
-                        <x-text-input name="email" value="{{ old('email') }}"
-                            placeholder="{{ __('Please input this field') }}" />
-                    </div>
-                </div>
-
-                {{-- line attribute --}}
-                <div class="buttonpb-6 pt-6 items-center border-b border-on-surface-900">
-                    <div class="col-span-1 text-on-surface-500 font-bold">
-                        <label>{{ __('Password') }}</label>
-                    </div>
-                    <div class="col-span-4 text-on-surface-600">
-                        <x-text-input type="password" name="password" value="{{ old('password') }}"
-                            placeholder="{{ __('Please input this field') }}" />
-                    </div>
-                </div>
+            <!-- Email Input -->
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700">
+                    {{ __('Email') }}
+                </label>
+                <x-text-input name="email" value="{{ old('email') }}"
+                    class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
+                    placeholder="{{ __('Enter your email') }}" />
             </div>
 
-            <div class="flex flex-row justify-end mt-10">
-                <button href="{{ route('password.request') }}" target="_self"
-                    class="flex active:translate-y-1 rounded-lg lg:rounded-2xl px-2 py-2 w-auto items-center justify-center">
-                    {{ __('Forget password') }}
-                </button>
+            <!-- Password Input -->
+            <div class="space-y-2">
+                <label class="block text-sm font-medium text-gray-700">
+                    {{ __('Password') }}
+                </label>
+                <x-text-input type="password" name="password" value="{{ old('password') }}"
+                    class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
+                    placeholder="{{ __('Enter your password') }}" />
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center justify-between pt-2">
+                <a href="{{ route('password.request') }}"
+                    class="text-sm text-gray-500 hover:text-gray-700 transition-colors">
+                    {{ __('Forgot password?') }}
+                </a>
 
                 <button type="submit"
-                    class="flex bg-indigo-600 hover:bg-indigo-400 active:translate-y-1 rounded-lg lg:rounded-2xl px-2 py-2 w-auto items-center justify-center">
-                    {{ __('Login') }}
+                    class="px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-all">
+                    {{ __('Sign in') }}
                 </button>
             </div>
         </form>
 
         <!-- Footer -->
-        <p class="mt-6 text-center text-sm text-gray-500">
+        <p class="mt-8 text-center text-sm text-gray-500">
             {{ __('Not a member?') }}
-            <a href="/register" class="text-indigo-600 hover:underline">{{ __('Register here') }}</a>
+            <a href="/register" class="text-gray-900 hover:underline transition-colors">
+                {{ __('Register here') }}
+            </a>
         </p>
     </div>
 </section>
