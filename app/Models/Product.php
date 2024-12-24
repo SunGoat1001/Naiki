@@ -13,10 +13,13 @@ class Product extends Model
         'name',
         'price',
         'long_desc',
+        'gender',
         'main_image_url',
         'category_id',
         'imported_date',
-    ];  
+    ]; 
+
+    public const DEFAULT_CURRENCY = '$';
 
     public function category()
     {

@@ -10,6 +10,8 @@ class ProductFilter extends Component
 {
     public $categories = [];
 
+    public $selectedGenders = [];
+
     public $products = [];
 
     public $sortBy = 'relevance';
@@ -23,6 +25,11 @@ class ProductFilter extends Component
     public $selectedPriceRanges = [];
 
     public function updatedSelectedPriceRanges()
+    {
+        $this->products = $this->getProducts();
+    }
+
+    public function updatedSelectedGenders()
     {
         $this->products = $this->getProducts();
     }
@@ -75,6 +82,11 @@ class ProductFilter extends Component
             });
         }
 
+        // Gender filter
+        if ($this->selectedGenders) {
+            $query->whereIn('gender', $this->selectedGenders);
+        }
+
         // Other filters
         if ($this->searchTerm) {
             $query->where('name', 'like', '%' . trim($this->searchTerm) . '%');
@@ -102,7 +114,7 @@ class ProductFilter extends Component
     }
 
     public function render()
-    {
+    {        
         return view('livewire.components.product-filter', [
             'products' => $this->products,
             'categories' => $this->categories,

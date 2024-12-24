@@ -7,7 +7,7 @@
         </div>
         <div class="flex flex-col">
             <span class="text-xl font-bold mt-2">{{ $product->name }}</span>
-            <span class="text-gray-500">Men's / Women's Shoes</span>
+            <span class="text-gray-500">{{ $product->gender }}'s Shoes</span>
             <span class="underline text-gray-500">More
                 color</span>
             <span class="font-semibold text-lg mt-3">${{ $product->price }}</span>

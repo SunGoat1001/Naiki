@@ -60,11 +60,12 @@
                         <span class="text-lg" id="shipping">FREE</span>
                     </div>
                 </div>
-                <a href="#">
+                <form method="GET" action="{{ route('checkout.index') }}">
+                    @csrf
                     <button class="bg-black hover:bg-opacity-80 text-xl text-white w-full h-[70px]">
                         Order
                     </button>
-                </a>
+                </form>
             </div>
         </div>
 
@@ -111,3 +112,4 @@
         productContainer.remove();
     });
 </script>
+

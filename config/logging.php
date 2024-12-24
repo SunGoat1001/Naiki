@@ -53,8 +53,14 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'name' => 'a-project',
+            'channels' => ['single','slack'],
             'ignore_exceptions' => false,
+        ],
+
+        'syslog' => [
+            'driver' => 'syslog',
+            'level' => 'debug',
         ],
 
         'single' => [
@@ -70,13 +76,6 @@ return [
             'days' => 14,
         ],
 
-        'slack' => [
-            'driver' => 'slack',
-            'url' => env('LOG_SLACK_WEBHOOK_URL'),
-            'username' => 'Laravel Log',
-            'emoji' => ':boom:',
-            'level' => env('LOG_LEVEL', 'critical'),
-        ],
 
         'papertrail' => [
             'driver' => 'monolog',
