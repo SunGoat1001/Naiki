@@ -14,12 +14,12 @@
                 from everyday outfits to stylish accessories, ready to make you stand out anywhere, anytime.</span>
         </div>
     </div>
-
+    
+    
+    <livewire:components.product-filter :categories="$categories" :products="$products" />
+    
     <!-- Pagination Links -->
     <div class="pagination-links">
         {{ $products->links() }}
     </div>
-
-
-    <livewire:components.product-filter :categories="$categories" :products="$products" />
 </x-layout>

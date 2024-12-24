@@ -133,7 +133,9 @@
                 <x-product-card-items :product="$product" />
             @endforeach
         </div>
+
     </section>
+    
 
     <!-- Filter hidden -->
     <script>

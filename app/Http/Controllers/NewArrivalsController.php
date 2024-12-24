@@ -29,4 +29,3 @@ class NewArrivalsController extends Controller
         ]);
     }
 }
-
