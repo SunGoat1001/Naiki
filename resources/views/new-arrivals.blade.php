@@ -15,5 +15,11 @@
         </div>
     </div>
 
+    <!-- Pagination Links -->
+    <div class="pagination-links">
+        {{ $products->links() }}
+    </div>
+
+
     <livewire:components.product-filter :categories="$categories" :products="$products" />
 </x-layout>
