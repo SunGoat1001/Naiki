@@ -45,7 +45,7 @@
                                 <li class="border-b-2 border-on-surface py-4 flex flex-row">
                                     <div class="flex-shrink-0">
                                         <img class="object-cover h-20 w-20 rounded"
-                                             src="{{ $item->product->display_image_url }}?w=150&h=150"
+                                             src="{{ $item->product->main_image_url }}?w=150&h=150"
                                              alt="product image"/>
                                     </div>
     
