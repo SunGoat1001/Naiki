@@ -52,12 +52,12 @@
                     <span class="text-xl font-medium my-3">Gender</span>
                     <i class='bx bx-chevron-up text-3xl my-2'></i>
                 </div>
-                <div class="w-full h-auto text-lg font-medium mb-2 hidden">
-                    <input type="checkbox" id="men" name="men" value="Men" class="h-6 w-6">
+                <div class="w-full h-auto text-lg font-medium mb-2">
+                    <input type="checkbox" id="men" name="men" value="Men" wire:model="selectedGenders" class="h-6 w-6">
                     <label for="men"> Men</label><br>
-                    <input type="checkbox" id="women" name="women" value="Women" class="h-6 w-6">
+                    <input type="checkbox" id="women" name="women" value="Women" wire:model="selectedGenders" class="h-6 w-6">
                     <label for="women"> Women</label><br>
-                    <input type="checkbox" id="unisex" name="unisex" value="Unisex" class="h-6 w-6">
+                    <input type="checkbox" id="unisex" name="unisex" value="Unisex" wire:model="selectedGenders" class="h-6 w-6">
                     <label for="unisex"> Unisex</label><br>
                 </div>
             </div>

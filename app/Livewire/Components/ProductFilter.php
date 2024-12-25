@@ -22,7 +22,16 @@ class ProductFilter extends Component
 
     public $selectedPriceRanges = [];
 
+    public $genders = [];
+
+    public $selectedGenders = [];
+
     public function updatedSelectedPriceRanges()
+    {
+        $this->products = $this->getProducts();
+    }
+
+    public function updatedSelectedGenders()
     {
         $this->products = $this->getProducts();
     }
@@ -38,6 +47,8 @@ class ProductFilter extends Component
         $this->categories = Category::all();
         $this->selectedCategory = request('category');
         $this->selectedPriceRanges = [];
+        $this->selectedGenders = [];
+        $this->genders = Product::select('gender')->distinct()->pluck('gender')->toArray();
         $this->products = $this->getProducts();
     }
 
@@ -73,6 +84,11 @@ class ProductFilter extends Component
                     }
                 }
             });
+        }
+
+        // Gender filter
+        if (!empty($this->selectedGenders)) {
+            $query->whereIn('gender', $this->selectedGenders);
         }
 
         // Other filters

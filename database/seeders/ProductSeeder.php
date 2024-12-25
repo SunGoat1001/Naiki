@@ -17,6 +17,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Air Jordan 1 Low',
                 'long_desc' => '<p>ALWAYS FRESH.</p> <p>Inspired by the original that debuted in 1985, the Air Jordan 1 Low offers a clean, classic look...</p>',
+                'gender'=> 'Men',
                 'price' => 129.99,
                 'main_image_url' => 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/1c0c434c-9802-4556-89c7-a8600b2828d8/air-jordan-1-low-shoes-lFCSjp.png',
                 'category_id' => 1,
@@ -29,6 +30,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Air Jordan 1 Low',
                 'long_desc' => '<p>ALWAYS FRESH.</p> <p>Inspired by the original that debuted in 1985, the Air Jordan 1 Low offers a clean, classic look...</p>',
+                'gender'=> 'Men',
                 'price' => 120.00,
                 'main_image_url' => 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/b95033d3-2b18-4e8e-b386-56e4209b3352/air-jordan-1-low-shoes-zTWr01.png',
                 'category_id' => 1,
@@ -40,6 +42,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Air Jordan 1 Low',
                 'long_desc' => '<p>ALWAYS FRESH.</p> <p>Inspired by the original that debuted in 1985, the Air Jordan 1 Low offers a clean, classic look...</p>',
+                'gender'=> 'Women',
                 'price' => 120.00,
                 'main_image_url' => 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/25dfd854-eb11-45db-984d-24721d8c34cc/air-jordan-1-low-shoes-6Q1tFM.png',
                 'category_id' => 1,
@@ -51,6 +54,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Air Jordan 1 Low',
                 'long_desc' => '<p>ALWAYS FRESH.</p> <p>Inspired by the original that debuted in 1985, the Air Jordan 1 Low offers a clean, classic look...</p>',
+                'gender'=> 'Women',
                 'price' => 120.00,
                 'main_image_url' => 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/i1-7b457df1-d698-455e-ba39-694868991933/air-jordan-1-low-shoes-nGLZR9.png',
                 'category_id' => 1,
@@ -67,6 +71,7 @@ class ProductSeeder extends Seeder
 <p class="mb-4">
   Stay on your feet with soft and supportive cushioning, built to help keep you on the run. A wider forefoot and higher foam stacks help shield you from recurring attrition, giving you the peace of mind to pound the pavement every day. The springy responsiveness will surprise you too, adding an element of pure speed to one of our most tested shoes to help you go longer, faster, and further than ever.
 </p>',
+                'gender'=> 'Men',
                 'price' => 389.99,
                 'main_image_url' => 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/96bb6586-fe27-44a5-b4d7-b13f500ea206/react-infinity-3-womens-road-running-shoes-XpNmlR.png',
                 'category_id' => 2,
@@ -78,6 +83,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Nike SB Zoom Pogo Plus Premium',
                 'long_desc' => '<p>ALWAYS FRESH.</p> <p>The Zoom Pogo delivers a serious boost to any skate session...</p>',
+                'gender'=> 'Women',
                 'price' => 85.49,
                 'main_image_url' => 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/d45cfbff-7b7f-4e04-bc79-b28011263026/sb-zoom-pogo-plus-premium-skate-shoes-RvSjsf.png',
                 'category_id' => 3,
@@ -89,6 +95,7 @@ class ProductSeeder extends Seeder
             [
                 'name' => 'Air Jordan XXXVIII Low PF',
                 'long_desc' => '<p>ALWAYS FRESH.</p> <p>Get grounded, stay grounded. The AJ XXXVIII is all about groundwork...</p>',
+                'gender'=> 'Women',
                 'price' => 21.09,
                 'main_image_url' => 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/b6aa977d-3ad0-4f95-970f-2cae9a69dea5/air-jordan-xxxviii-low-pf-basketball-shoes-2lBnKn.png',
                 'category_id' => 1,
