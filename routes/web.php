@@ -4,7 +4,8 @@ use App\Http\Controllers\DetailsController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\NewArrivalsController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\EmailTestController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,3 +22,5 @@ Route::get('/', [HomepageController::class, 'index']);
 Route::get('/details/{id}', [DetailsController::class, 'show']);
 
 Route::get('/newarrivals', [NewArrivalsController::class, 'index'])->name('new-arrivals.index');
+
+Route::get('/send-email', [CustomerController::class, 'sendEmailToCustomer']);
