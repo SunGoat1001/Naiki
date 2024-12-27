@@ -1,28 +1,39 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Models\Contact;
-
-
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    public function submit(Request $request)
+    /**
+     * Hiển thị trang liên hệ.
+     */
+    public function index()
+    {
+        return view('contact');
+    }
+
+    /**
+     * Xử lý lưu thông tin liên hệ từ form.
+     */
+    public function store(Request $request)
     {
         // Validate dữ liệu từ form
         $validated = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',    
-            'email' => 'required|email',
-            'message' => 'required|string',
+            'first_name' => 'required|string|max:50',
+            'last_name' => 'required|string|max:50',
+            'email' => 'required|email|max:255',
+            'message' => 'nullable|string',
         ]);
-        // Xử lý dữ liệu (ví dụ: lưu vào database hoặc gửi email)
-        // Contact::create($validated);
-        Contact::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'message' => $request->message,
-        ]);
+
+        // Lưu thông tin vào bảng `contacts`
+        Contact::create($validated);
+
+        // Chuyển hướng lại với thông báo thành công
+        return back()->with('success', 'Your message has been sent successfully!');
     }
+
+   
 }

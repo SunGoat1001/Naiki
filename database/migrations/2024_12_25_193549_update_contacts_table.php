@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('contacts', function (Blueprint $table) {
-            // Thêm các cột first_name và last_name
-            $table->string('first_name')->after('id');
-            $table->string('last_name')->after('first_name');
-
-            // Xóa cột name cũ
-            $table->dropColumn('name');
+        Schema::create('contacts', function (Blueprint $table) {
+            $table->id();
+            $table->string('first_name', 50); // Họ
+            $table->string('last_name', 50);  // Tên
+            $table->string('phone_number')->nullable();
+            $table->string('email')->unique();  // Email
+            $table->text('message')->nullable(); // Tin nhắn (nếu có)
+            $table->timestamps();
         });
     }
 
@@ -26,13 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('contacts', function (Blueprint $table) {
-            // Khôi phục lại cột name
-            $table->string('name')->after('id');
-
-            // Xóa các cột first_name và last_name
-            $table->dropColumn('first_name');
-            $table->dropColumn('last_name');
-        });
+        Schema::dropIfExists('contacts');
     }
 };
