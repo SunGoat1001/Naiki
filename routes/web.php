@@ -6,6 +6,7 @@ use App\Http\Controllers\NewArrivalsController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,9 +24,9 @@ Route::get('/details/{id}', [DetailsController::class, 'show']);
 
 Route::get('/newarrivals', [NewArrivalsController::class, 'index'])->name('new-arrivals.index');
 
-Route::get('/contact', function () {
-    return view('contact'); // Trả về view contact.blade.php
-})->name('contact');
+
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
