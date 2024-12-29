@@ -27,4 +27,26 @@ class CategoryModelTest extends TestCase
         // Kiểm tra số lượng sản phẩm của danh mục là 3.
         $this->assertTrue(count($category->products) === 3);
     }
+    //Ràng buộc name không được trống
+    public function test_category_name_is_required()
+    {
+        $this->expectException(\Illuminate\Database\QueryException::class);
+
+        Category::factory()->create(['name' => null]);
+    }
+    //Kiểm tra quan hệ hasMany
+    public function test_products_are_set_to_null_when_category_is_deleted()
+    {
+        $category = Category::factory()->has(Product::factory()->count(3))->create();
+        $category->delete();
+
+        $this->assertDatabaseHas('products', ['category_id' => null]);
+    }
+    //Category không có sản phẩm
+    public function test_category_without_products_returns_empty()
+    {
+        $category = Category::factory()->create();
+
+        $this->assertCount(0, $category->products);
+    }
 }

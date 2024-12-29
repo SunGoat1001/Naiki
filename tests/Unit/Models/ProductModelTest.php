@@ -56,4 +56,37 @@ class ProductModelTest extends TestCase
         // Kiểm tra hàm getFormattedTotalAmount
         $this->assertSame($expected_results, $product->getFormattedTotalAmount($quantity));
     }
+    // Kiểm tra trường imported_date, Test rằng imported_date có thể null
+    public function test_imported_date_can_be_null()
+{
+    $product = Product::factory()->create(['imported_date' => null]);
+
+    $this->assertNull($product->imported_date);
+}
+    //. Kiểm tra URL hình ảnh mặc định, Test rằng sản phẩm trả về URL hình ảnh mặc định nếu main_image_url bị null
+    public function test_product_returns_default_image_url_if_main_image_is_null()
+    {
+        $product = Product::factory()->create(['main_image_url' => null]);
+
+        $this->assertEquals(Product::DEFAULT_IMAGE, $product->main_image_url);
+    }
+    //Kiểm tra thuộc tính formatted_price khi giá bằng 0
+    public function test_formatted_price_is_zero_when_price_is_zero()
+    {
+        $product = Product::factory()->create(['price' => 0]);
+
+        $this->assertEquals('0 VNĐ', $product->formatted_price);
+    }
+    //Kiểm tra các trường hợp ngoại lệ trong getFormattedTotalAmount
+    public function test_formatted_total_amount_is_zero_when_quantity_is_zero()
+    {
+        $product = Product::factory()->create(['price' => 100]);
+
+        $this->assertEquals('0 VNĐ', $product->getFormattedTotalAmount(0));
+    }
+    
+
+
+
+
 }
