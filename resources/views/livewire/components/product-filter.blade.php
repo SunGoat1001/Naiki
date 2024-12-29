@@ -22,13 +22,13 @@
             <option value="relevance">SORT BY</option>
             <option value="lowestPrice">LOWEST PRICE</option>
             <option value="highestPrice">HIGHEST PRICE</option>
-            <option value="lastest">LASTEST</option>
+            <option value="lastest">NEWEST FIRST</option>
         </select>
     </div>
 
     {{-- FILTER PANEL --}}
     <section class="col h-full m-auto mb-10 mt-4 flex max-[431px]:m-0">
-        <div id="filterPanel" class="w-60 h-full py-4 max-[431px]:hidden hidden pr-4">
+        <div id="filterPanel" class="w-60 h-full max-[431px]:hidden hidden pr-4">
 
             <!-- FILTER BY CATEGORY -->
             <div class="w-full flex flex-col border-y-[1.5px] border-black">
@@ -74,7 +74,7 @@
                             <input type="checkbox" id="{{ $size }}" value="{{ $size }}"
                                 class="hidden peer" required="">
                             <label for="{{ $size }}"
-                                class="flex items-center justify-center w-14 h-14 border-[1.5px] border-black hover:border-2 rounded-md focus:bg-black focus:text-white peer-checked:bg-black hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-white cursor-pointer">
+                                class="flex items-center justify-center w-14 h-14 border-[1.5px] border-black hover:border-2 rounded-md focus:bg-black focus:text-white peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 cursor-pointer">
                                 <div class="text-center">
                                     {{ $size }}</div>
                             </label>
@@ -127,12 +127,11 @@
         </div>
 
         <!-- Product -->
-        <div class="container mx-auto px-4 py-4">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                @foreach ($products as $product)
-                    <x-product-card-items :product="$product" />
-                @endforeach
-            </div>
+        <div id="productContainer"
+            class="w-full h-full mb-20 max-[431px]:m-0 max-[431px]:ml-3 grid grid-cols-4 gap-3 max-[431px]:grid-cols-1">
+            @foreach ($products as $product)
+                <x-product-card-items :product="$product" />
+            @endforeach
         </div>
     </section>
 
