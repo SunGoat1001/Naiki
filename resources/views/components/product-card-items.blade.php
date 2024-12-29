@@ -1,16 +1,14 @@
-<div class="w-full h-auto flex-col max-[431px]:p-4">
-    <a href="/details/{{ $product->id }}">
-        <div class="relative w-full h-auto">
-            <img src="{{ $product->main_image_url }}" alt="" class="w-full h-auto object-cover">
-            <img src="/asset/img/product/Shoes/air-jordan-1-low-shoes-nGLZR9 (4).jpg" alt=""
-                class="w-full h-auto object-cover absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300">
+<div
+    class="rounded-xl bg-white border border-gray-200 hover:border-gray-400 shadow-sm hover:shadow-md transition-shadow duration-300 ease-in-out">
+    <a href="/details/{{ $product->id }}" class="block">
+        <div class="relative aspect-w-1 aspect-h-1 overflow-hidden">
+            <img src="{{ $product->main_image_url }}" alt="{{ $product->name }}"
+                class="w-full h-full object-cover rounded-t-xl">
         </div>
-        <div class="flex flex-col">
-            <span class="text-xl font-bold mt-2">{{ $product->name }}</span>
-            <span class="text-gray-500">Men's / Women's Shoes</span>
-            <span class="underline text-gray-500">More
-                color</span>
-            <span class="font-semibold text-lg mt-3">${{ $product->price }}</span>
+        <div class="p-4">
+            <h2 class="text-lg font-medium text-gray-900 mb-1">{{ $product->name }}</h2>
+            <p class="text-sm text-gray-500 mb-2">Men's / Women's Shoes</p>
+            <p class="text-md font-semibold text-gray-900">${{ number_format($product->price, 2) }}</p>
         </div>
     </a>
 </div>
