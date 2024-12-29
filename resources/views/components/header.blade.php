@@ -2,9 +2,8 @@
     <div class="col flex justify-between items-center h-16">
         <div>
             <a href="/">
-                <div class="bg-[url('/asset/img/LogoNAV.png')] bg-[{{ url('url', [asset('img/LogoNAV.png')]) }}] bg-cover h-16 w-16"
-                    aria-label="Home">
-                    HOME
+                <div class="h-16 w-16" aria-label="Home">
+                    <img src="{{ asset('/asset/img/LogoNAV.png') }}" alt="Home" class="h-full w-full object-cover">
                 </div>
             </a>
         </div>
