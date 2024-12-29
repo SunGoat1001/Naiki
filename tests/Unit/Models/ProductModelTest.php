@@ -1,7 +1,7 @@
 <?php
 
 namespace Tests\Unit\Models;
-
+use Illuminate\Database\QueryException;
 use Tests\TestCase;
 use App\Models\Product;
 use App\Models\Category;
@@ -84,7 +84,28 @@ class ProductModelTest extends TestCase
 
         $this->assertEquals('0 VNĐ', $product->getFormattedTotalAmount(0));
     }
-    
+    //Kiểm tra dữ liệu lưu trữ đúng
+    public function test_product_creation_saves_to_database()
+    {
+        $product = Product::factory()->create([
+            'name' => 'Test Product',
+            'price' => 999.99
+        ]);
+
+        $this->assertDatabaseHas('products', [
+            'name' => 'Test Product',
+            'price' => 999.99
+        ]);
+    }
+    //Kiểm tra ràng buộc (Constraints)
+    public function test_foreign_key_constraint()
+    {
+        $this->expectException(QueryException::class);
+
+        Product::factory()->create(['category_id' => 999]); // Không tồn tại
+    }
+
+
 
 
 
