@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -26,8 +29,28 @@ Route::prefix('v1')->group(function () {
 
 });
 
-       
-    }); 
+Route::post('login', function (Request $request) {
+    // Kiểm tra email và password người dùng
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
+
+    $user = User::where('email', $request->email)->first();
+
+    if ($user && Hash::check($request->password, $user->password)) {
+        // Nếu đăng nhập thành công, tạo token
+        $token = $user->createToken('MyApp')->plainTextToken;
+        return response()->json(['token' => $token]);
+    }
+
+    return response()->json(['message' => 'Unauthorized'], 401);
+});
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/profile/edit', [ProfileController::class, 'edit']);
+    Route::delete('/profile', [ProfileController::class, 'destroy']);
+});
+
 
     Route::get('/test-slow-query', function () {
         DB::select("SELECT SLEEP(1)"); // Truy vấn này sẽ dừng trong 2 giây (2000ms)
