@@ -4,6 +4,7 @@ namespace App\Livewire\Components;
 
 use App\Models\Category;
 use App\Models\Product;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 class ProductFilter extends Component
@@ -22,9 +23,9 @@ class ProductFilter extends Component
 
     public $selectedPriceRanges = [];
 
-    public $genders = [];
-
+    #[Url]
     public $selectedGenders = [];
+
 
     public function updatedSelectedPriceRanges()
     {
@@ -47,8 +48,7 @@ class ProductFilter extends Component
         $this->categories = Category::all();
         $this->selectedCategory = request('category');
         $this->selectedPriceRanges = [];
-        $this->selectedGenders = [];
-        $this->genders = Product::select('gender')->distinct()->pluck('gender')->toArray();
+        $this->selectedGenders = request('selectedGenders', []);
         $this->products = $this->getProducts();
     }
 
@@ -86,14 +86,14 @@ class ProductFilter extends Component
             });
         }
 
-        // Gender filter
-        if (!empty($this->selectedGenders)) {
-            $query->whereIn('gender', $this->selectedGenders);
-        }
-
         // Other filters
         if ($this->searchTerm) {
             $query->where('name', 'like', '%' . trim($this->searchTerm) . '%');
+        }
+
+        // Gender filter
+        if ($this->selectedGenders) {
+            $query->where('gender', $this->selectedGenders);
         }
 
         if ($this->selectedCategory) {

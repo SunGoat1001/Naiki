@@ -12,7 +12,7 @@ class WomenController extends Controller
         $categories = Category::all();
         $products = Product::all();
 
-        return view('new-arrivals', [
+        return view('women', [
             'categories' => $categories,
             'products' => $products,
         ]);

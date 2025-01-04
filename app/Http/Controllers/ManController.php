@@ -12,7 +12,7 @@ class ManController extends Controller
         $categories = Category::all();
         $products = Product::all();
 
-        return view('new-arrivals', [
+        return view('man', [
             'categories' => $categories,
             'products' => $products,
         ]);
