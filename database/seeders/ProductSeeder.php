@@ -155,6 +155,6 @@ class ProductSeeder extends Seeder
                 //            ],
             ]);
 
-        Product::factory()->count(11000)->create();
+        // Product::factory()->count(11000)->create();
     }
 }
