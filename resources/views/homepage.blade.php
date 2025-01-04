@@ -51,6 +51,7 @@
         }
     </style>
 
+
     <div class="fixed top-16 z-40 w-full h-7 flex justify-center items-center bg-black">
         <marquee behavior="" direction="" class="space-x-40 text-nowrap">
             <strong class="text-white text-xs">FREE SHIPPING ON ORDERS OVER $50!</strong>
@@ -96,7 +97,7 @@
                     <a href="/women">WOMEN</a>
                 </div>
                 <div class="px-7 text-2xl underline underline-offset-4">
-                    <a href="/man">MAN</a>
+                    <a href="/men">MEN</a>
                 </div>
             </div>
         </div>
@@ -139,23 +140,25 @@
 
     <!-- PRODUCT -->
     <section class="py-10 col">
-        <span class="font-bold text-3xl mb-5">NEW ARRIVALS</span>
+        <h2 class="font-bold text-3xl mb-5 text-center">NEW ARRIVALS</h2>
         <div class="container1 container2 mt-5">
             <div class="relative ">
                 <button id="prev-slide"
-                    class="w-12 h-12 slide-button material-symbols-rounded hidden absolute top-1/2 left-0 transform -translate-y-1/2 bg-black text-white rounded-full z-10">
-                    <img src="https://taoanhdep.com/wp-content/uploads/2023/11/hinhnen-jk.jpg">
+                    class="w-12 h-12 slide-button material-symbols-rounded hidden absolute top-1/2 left-0 transform -translate-y-1/2 bg-black hover:bg-gray-800 text-white rounded-full z-10 transition-colors duration-300 ease-in-out shadow-lg flex items-center justify-center">
+                    <span class="sr-only">Previous</span>
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7">
+                        </path>
+                    </svg>
                 </button>
                 <ul class="image-list flex overflow-x-auto  space-x-4 overflow-hidden">
                     @foreach ($products as $product)
                         <a href="/details/{{ $product->id }}">
-                            <li class="shadow-lg">
-                                <div class="relative w-[400px] h-[500px] flex flex-col bg-white">
+                            <li class="flex-shrink-0 w-full sm:w-1/2 md:w-1/3 lg:w-1/4 px-2">
+                                <div class="relative w-[400px] h-[500px] flex flex-col">
                                     <img src="{{ $product->main_image_url }}" alt=""
                                         class="h-[400px] object-cover">
-                                    <img src="/asset/img/product/Shoes/air-jordan-1-low-shoes-nGLZR9 (4).jpg"
-                                        alt=""
-                                        class="w-full h-[400px] object-cover absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300">
                                     <span class="font-bold text-xl m-2">{{ $product->name }}</span>
                                     <span class="font-medium ml-2">${{ $product->price }}</span>
                                 </div>
@@ -164,8 +167,13 @@
                     @endforeach
                 </ul>
                 <button id="next-slide"
-                    class="w-12 h-12 slide-button material-symbols-rounded absolute top-1/2 right-0 transform -translate-y-1/2 bg-black text-white rounded-full z-10">
-                    <img src="https://cdn.pixabay.com/photo/2024/04/26/16/57/girl-8722219_640.png" alt="">
+                    class="w-12 h-12 slide-button material-symbols-rounded absolute top-1/2 right-0 transform -translate-y-1/2 bg-black hover:bg-gray-800 text-white rounded-full z-10 transition-colors duration-300 ease-in-out shadow-lg flex items-center justify-center">
+                    <span class="sr-only">Next</span>
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
+                        </path>
+                    </svg>
                 </button>
             </div>
             <div class="mt-4 h-6 relative">
@@ -192,7 +200,7 @@
                     <a href="">WOMEN</a>
                 </div>
                 <div class="px-7 text-2xl underline underline-offset-4">
-                    <a href="">MAN</a>
+                    <a href="">MEN</a>
                 </div>
             </div>
         </div>
