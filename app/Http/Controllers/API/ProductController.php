@@ -32,7 +32,7 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'long_desc' => 'required|max:255',
             'main_image_url' => 'required|url',
-            'category_id' => 'required|exists:categories',
+            'category_id' => 'required|exists:categories,id',
             'imported_date' => 'required|date',
         ]);
 
@@ -44,7 +44,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return $product;
     }
 
     /**
@@ -57,7 +57,7 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'long_desc' => 'required|max:255',
             'main_image_url' => 'required|url',
-            'category_id' => 'required|exists:categories',
+            'category_id' => 'required|exists:categories,id',
             'imported_date' => 'required|date',
         ]);
 
@@ -72,5 +72,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
+
+        return $product;
     }
 }
