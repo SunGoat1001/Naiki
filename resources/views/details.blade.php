@@ -3,12 +3,12 @@
     https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css
     " rel="stylesheet">
 
-    <div class="flex gap-4 pt-6">
+    <div class="flex gap-4 pt-6 w-[1280px] m-auto">
         <!-- IMAGE GALLERY -->
         <div class="flex flex-col gap-2 px-2 ml-[2px]">
             @foreach ($product_images as $product_image)
                 <div
-                    class="thumbnail w-20 h-20 cursor-pointer hover:border-4 hover:rounded-xl hover:border-blue-400 hover:scale-105 hover:transform hover:duration-100">
+                    class="thumbnail w-20 h-20 cursor-pointer hover:border-4 hover:rounded-xl hover:border-black hover:scale-105 hover:transform hover:duration-100">
                     <img src="{{ $product_image->image_url }}" alt="{{ $product->name }}"
                         class="w-full h-full rounded-lg" />
                 </div>
@@ -23,42 +23,48 @@
 
         <!-- PRODUCT DETAILS -->
         <div class="w-full max-w-[455px] ml-4 max-[431px]:p-4">
-            <div class="px-[2px] py-0">
+            <div>
                 <i class="bx bxs-star text-yellow-400"></i>
                 <i class="bx bxs-star text-yellow-400"></i>
                 <i class="bx bxs-star text-yellow-400"></i>
                 <i class="bx bxs-star text-yellow-400"></i>
                 <i class="bx bxs-star-half text-yellow-400"></i>
             </div>
-            <h1 class="product-name mb-[10px] text-4xl font-bold">{{ $product->name }}</h1>
-            <div class="product-price font-bold text-neutral-950 mx-3 my-0 text-lg">
-                <strong>Price</strong><br />
-                <label for="">
+            <h1 class="product-name text-4xl font-bold">{{ $product->name }}</h1>
+            <hr class="my-4">
+            <div class="product-price font-bold text-lg">
+                <h2 class="text-2xl font-bold">Price</h2>
+                <span class="text-xl font-medium">
                     {{ $product->price }}$
-                </label>
+                </span>
             </div>
-            <hr />
+            <hr class="my-4" />
 
             <!-- COLOR SELECTION -->
             <div class="mb-4">
-                <strong>Color</strong>
+                <strong class="block mb-2">Color</strong>
                 <div class="flex gap-2">
-                    <div class="color w-8 h-8 cursor-pointer rounded-full bg-red-500" data-color="Red"></div>
-                    <div class="color w-8 h-8 cursor-pointer rounded-full bg-blue-300" data-color="Blue"></div>
-                    <div class="color w-8 h-8 cursor-pointer rounded-full bg-gray-300" data-color="Gray"></div>
-                    <div class="color w-8 h-8 cursor-pointer rounded-full bg-orange-500" data-color="Orange"></div>
+                    <div class="color w-8 h-8 cursor-pointer rounded-full bg-red-500 hover:ring-2 hover:ring-black"
+                        data-color="Red"></div>
+                    <div class="color w-8 h-8 cursor-pointer rounded-full bg-blue-300 hover:ring-2 hover:ring-black"
+                        data-color="Blue"></div>
+                    <div class="color w-8 h-8 cursor-pointer rounded-full bg-gray-300 hover:ring-2 hover:ring-black"
+                        data-color="Gray"></div>
+                    <div class="color w-8 h-8 cursor-pointer rounded-full bg-orange-500 hover:ring-2 hover:ring-black"
+                        data-color="Orange"></div>
                 </div>
             </div>
 
             <!-- SIZE SELECTION -->
             <div class="mt-4">
-                <strong>Select size:</strong>
+                <strong class="block mb-2">Select size:</strong>
                 <div class="flex flex-wrap gap-2">
                     @foreach ([37.5, 38, 38.5, 39, 40, 41, 42, 43, 44] as $size)
                         <label class="flex items-center cursor-pointer">
-                            <input class="hidden" type="radio" name="size" value="{{ $size }}" />
+                            <input class="hidden peer" type="radio" id="size" name="size"
+                                value="{{ $size }}" />
                             <span
-                                class="flex justify-center items-center w-20 h-10 border-2 rounded-lg">{{ $size }}</span>
+                                class="flex justify-center items-center w-20 h-10 border-2 rounded-lg peer-checked:bg-black peer-checked:text-white hover:border-black transition-colors duration-200">{{ $size }}</span>
                         </label>
                     @endforeach
                 </div>
@@ -66,7 +72,7 @@
 
             <!-- ADD TO CART BUTTON -->
             <button
-                class="w-full p-4 mt-6 bg-black text-white font-bold rounded-lg transition ease-in-out delay-150 hover:bg-indigo-500 duration-300"
+                class="w-full p-4 mt-6 bg-black text-white font-bold rounded-lg transform transition-all duration-300 ease-in-out hover:scale-105 hover:bg-gray-800 hover:border-2 hover:border-black"
                 onclick="addToCart()">
                 Add to Cart
             </button>
