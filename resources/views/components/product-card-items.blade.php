@@ -5,10 +5,12 @@
             <img src="{{ $product->main_image_url }}" alt="{{ $product->name }}"
                 class="w-full h-full object-cover rounded-t-xl">
         </div>
-        <div class="p-4">
-            <h2 class="text-lg font-medium text-gray-900 mb-1">{{ $product->name }}</h2>
-            <p class="text-sm text-gray-500 mb-2">Men's / Women's Shoes</p>
-            <p class="text-md font-semibold text-gray-900">${{ number_format($product->price, 2) }}</p>
+        <div class="flex flex-col">
+            <span class="text-xl font-bold mt-2">{{ $product->name }}</span>
+            <span class="text-gray-500">{{ $product->gender }}'s Shoes</span>
+            <span class="underline text-gray-500">More
+                color</span>
+            <span class="font-semibold text-lg mt-3">${{ $product->price }}</span>
         </div>
     </a>
 </div>

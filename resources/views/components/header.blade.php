@@ -10,8 +10,8 @@
 
         <div>
             <nav class="flex text-sm font-bold max-sm:hidden">
-                <a href="/women" class="p-5 hover:underline underline-offset-4 focus:underline">WOMAN</a>
-                <a href="/man" class="p-5 hover:underline underline-offset-4 focus:underline">MAN</a>
+                <a href="/women?selectedGenders[]=Women" class="p-5 hover:underline underline-offset-4 focus:underline">WOMEN</a>
+                <a href="/man?selectedGenders[]=Men" class="p-5 hover:underline underline-offset-4 focus:underline">MAN</a>
                 <a href="/newarrivals" class="p-5 hover:underline underline-offset-4 focus:underline">NEW ARRIVALS</a>
                 <a href="/contact" class="p-5 hover:underline underline-offset-4 focus:underline">CONTACT</a>
             </nav>
