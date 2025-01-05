@@ -71,7 +71,7 @@
                 <ul class="w-full h-auto flex flex-wrap gap-2 text-lg font-medium mb-2 hidden">
                     @foreach ([37.5, 38, 38.5, 39, 40, 40.5, 41, 42, 42.5, 43] as $size)
                         <li>
-                            <input type="checkbox" id="{{ $size }}" value="{{ $size }}"
+                            <input type="checkbox" id="{{ $size }}" value="{{ $size }}" wire:model.live="selectedSizes"
                                 class="hidden peer" required="">
                             <label for="{{ $size }}"
                                 class="flex items-center justify-center w-14 h-14 border-[1.5px] border-black hover:border-2 rounded-md focus:bg-black focus:text-white peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 cursor-pointer">
@@ -90,10 +90,18 @@
                     <i class='bx bx-chevron-up text-3xl my-2'></i>
                 </div>
                 <div class="w-full h-auto text-lg font-medium mb-2 hidden">
-                    <input type="checkbox" id="black" name="black" value="Black" class="h-6 w-6">
+                    <input type="checkbox" id="black" name="black" value="Black" wire:model.live="selectedColors" class="h-6 w-6">
                     <label for="black"> Black</label><br>
-                    <input type="checkbox" id="white" name="white" value="White" class="h-6 w-6">
+                    <input type="checkbox" id="white" name="white" value="White" wire:model.live="selectedColors" class="h-6 w-6">
                     <label for="white"> White</label><br>
+                    <input type="checkbox" id="red" name="red" value="Red" wire:model.live="selectedColors" class="h-6 w-6">
+                    <label for="red"> Red</label><br>
+                    <input type="checkbox" id="blue" name="blue" value="Blue" wire:model.live="selectedColors" class="h-6 w-6">
+                    <label for="blue"> Blue</label><br>
+                    <input type="checkbox" id="green" name="green" value="Green" wire:model.live="selectedColors" class="h-6 w-6">
+                    <label for="green"> Green</label><br>
+                    <input type="checkbox" id="yellow" name="yellow" value="Yellow" wire:model.live="selectedColors" class="h-6 w-6">
+                    <label for="yellow"> Yellow</label><br>
                 </div>
             </div>
 
