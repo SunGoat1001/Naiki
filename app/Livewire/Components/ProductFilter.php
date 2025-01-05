@@ -30,7 +30,6 @@ class ProductFilter extends Component
 
     public $selectedColors = [];
 
-
     public function updatedSelectedPriceRanges()
     {
         $this->products = $this->getProducts();
@@ -50,7 +49,7 @@ class ProductFilter extends Component
     {
         $this->products = $this->getProducts();
     }
-
+  
     public function handleSearch()
     {
         $this->searchTerm = $this->search;
@@ -124,12 +123,11 @@ class ProductFilter extends Component
         if ($this->selectedGenders) {
             $query->where('gender', $this->selectedGenders);
         }
-
         // Size filter
         if ($this->selectedSizes) {
             $query->where('size', $this->selectedSizes);
         }
-
+      
         if ($this->selectedCategory) {
             $query->where('category_id', $this->selectedCategory);
         }
