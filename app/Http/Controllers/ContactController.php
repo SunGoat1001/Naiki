@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ContactUs;
+use App\Jobs\SendContactEmail;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -22,7 +22,7 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate dữ liệu từ form
+          // Validate dữ liệu từ form
         $validated = $request->validate([
             'first_name' => 'required|string|max:50',
             'last_name' => 'required|string|max:50',
@@ -33,8 +33,9 @@ class ContactController extends Controller
         // Lưu thông tin vào bảng `contacts`
         Contact::create($validated);
 
-        // Gửi email
-        Mail::to('phucdo5255@gmail.com')->send(new ContactUs($validated));
+        // delay 1 minutes send by queue
+        SendContactEmail::dispatch($validated)->delay(now()->addMinutes(1));
+
 
         // Chuyển hướng lại với thông báo thành công
         return back()->with('success', 'Your message has been sent successfully!');
