@@ -58,4 +58,12 @@ class Product extends Model
     {
         return $this->main_image_url ?? self::DEFAULT_IMAGE;
     }
+    // public function relatedProducts()
+    // {
+    //     return $this->belongsToMany(Product::class, 'product_related', 'product_id', 'related_product_id');
+    // }
+    public function variants()
+    {
+        return $this->hasMany(ProductVariant::class);
+    }
 }

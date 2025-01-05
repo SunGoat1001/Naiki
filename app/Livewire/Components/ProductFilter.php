@@ -26,6 +26,9 @@ class ProductFilter extends Component
     #[Url]
     public $selectedGenders = [];
 
+    public $selectedSizes = [];
+
+    public $selectedColors = [];
 
     public function updatedSelectedPriceRanges()
     {
@@ -37,6 +40,16 @@ class ProductFilter extends Component
         $this->products = $this->getProducts();
     }
 
+    public function updatedSelectedSizes()
+    {
+        $this->products = $this->getProducts();
+    }
+
+    public function updatedSelectedColors() // Add this method
+    {
+        $this->products = $this->getProducts();
+    }
+  
     public function handleSearch()
     {
         $this->searchTerm = $this->search;
@@ -49,6 +62,8 @@ class ProductFilter extends Component
         $this->selectedCategory = request('category');
         $this->selectedPriceRanges = [];
         $this->selectedGenders = request('selectedGenders', []);
+        $this->selectedSizes = request('selectedSizes', []);
+        $this->selectedColors = request('selectedColors', []);
         $this->products = $this->getProducts();
     }
 
@@ -66,6 +81,19 @@ class ProductFilter extends Component
     private function getProducts()
     {
         $query = Product::query();
+
+        
+        // Join with product_variants table for size filtering
+        if ($this->selectedSizes) {
+            $query->join('product_variants', 'products.id', '=', 'product_variants.product_id')
+                  ->whereIn('product_variants.size', $this->selectedSizes);
+        }
+
+        // Color filter
+        if ($this->selectedColors) {
+            $query->join('product_variants', 'products.id', '=', 'product_variants.product_id')
+                    ->whereIn('product_variants.color', $this->selectedColors);
+        }
 
         // Price range filter
         if (!empty($this->selectedPriceRanges)) {
@@ -95,7 +123,11 @@ class ProductFilter extends Component
         if ($this->selectedGenders) {
             $query->where('gender', $this->selectedGenders);
         }
-
+        // Size filter
+        if ($this->selectedSizes) {
+            $query->where('size', $this->selectedSizes);
+        }
+      
         if ($this->selectedCategory) {
             $query->where('category_id', $this->selectedCategory);
         }
