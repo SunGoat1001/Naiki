@@ -197,6 +197,7 @@ return [
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
 
+        Spatie\ResponseCache\ResponseCacheServiceProvider::class,
     ],
 
     /*

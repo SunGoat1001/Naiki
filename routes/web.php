@@ -7,6 +7,7 @@ use App\Http\Controllers\ManController;
 use App\Http\Controllers\WomenController;
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
+use Spatie\ResponseCache\Middlewares\CacheResponse;
 
 
 /*
@@ -20,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [HomepageController::class, 'index'])->name('homepage');
+Route::get('/', [HomepageController::class, 'index'])->name('homepage')->middleware(CacheResponse::class);
 
 Route::get('/details/{id}', [DetailsController::class, 'show']);
 
