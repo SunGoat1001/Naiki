@@ -26,9 +26,6 @@ Route::prefix('v1')->group(function () {
 
 });
 
-       
-    }); 
-
     Route::get('/test-slow-query', function () {
         DB::select("SELECT SLEEP(1)"); // Truy vấn này sẽ dừng trong 2 giây (2000ms)
         return response()->json(['message' => 'Slow query executed']);
