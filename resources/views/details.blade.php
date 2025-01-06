@@ -39,31 +39,53 @@
             </div>
             <hr />
 
-            <!-- COLOR SELECTION -->
-            <div class="mb-4">
-                <strong>Color</strong>
-                <div class="flex gap-2">
-                    <div class="color w-8 h-8 cursor-pointer rounded-full bg-red-500" data-color="Red"></div>
-                    <div class="color w-8 h-8 cursor-pointer rounded-full bg-blue-300" data-color="Blue"></div>
-                    <div class="color w-8 h-8 cursor-pointer rounded-full bg-gray-300" data-color="Gray"></div>
-                    <div class="color w-8 h-8 cursor-pointer rounded-full bg-orange-500" data-color="Orange"></div>
-                </div>
-            </div>
 
-            <!-- SIZE SELECTION -->
-            <div class="mt-4">
-                <strong>Select size:</strong>
-                <div class="flex flex-wrap gap-2">
-                    @foreach ([37.5, 38, 38.5, 39, 40, 41, 42, 43, 44] as $size)
-                        <label class="flex items-center cursor-pointer">
-                            <input class="hidden peer" type="radio" name="size" value="{{ $size }}" />
-                            <span
-                                class="flex justify-center items-center w-20 h-10 border-2 rounded-lg peer-checked:bg-indigo-500 peer-checked:text-white">{{ $size }}</span>
-                        </label>
-                    @endforeach
-                </div>
-            </div>
 
+            <div id="product-options">
+
+<!-- COLORS -->
+<div id="colors">
+    <h3 class="text-xl font-semibold">Available Colors:</h3>
+    <div class="flex gap-2 mt-2">
+        @foreach ($colors as $color)
+            <div
+                class="color w-8 h-8 cursor-pointer rounded-full" 
+                style="background-color: {{ strtolower($color->name) }};" 
+                data-color="{{ $color->name }}" 
+                title="{{ $color->name }}" 
+                onclick="selectColor(this)">
+            </div>
+        @endforeach
+    </div>
+</div>
+
+<!-- SIZES -->
+<div id="sizes" class="mt-4">
+    <h3 class="text-xl font-semibold">Available Sizes:</h3>
+    <div class="flex flex-wrap gap-2 mt-2">
+    @foreach ($allSizes as $size)
+            @php
+                $isAvailable = in_array($size, $availableSizes->toArray());
+            @endphp
+            <label class="flex items-center cursor-pointer">
+                <input 
+                    class="hidden peer" 
+                    type="radio" 
+                    id="size" 
+                    name="size" 
+                    value="{{ $size }}" 
+                    {{ $isAvailable ? '' : 'disabled' }} 
+                />
+                <span class="flex justify-center items-center w-20 h-10 border-2 rounded-lg 
+                    {{ $isAvailable ? 'peer-checked:bg-black peer-checked:text-white hover:border-black' : 'bg-gray-200 text-gray-400 cursor-not-allowed' }} 
+                    transition-colors duration-200">
+                    {{ $size }}
+                </span>
+            </label>
+        @endforeach 
+    </div>
+</div>
+</div>
             <!-- ADD TO CART BUTTON -->
             <button
                 class="w-full p-4 mt-6 bg-black text-white font-bold rounded-lg transition ease-in-out delay-150 hover:bg-indigo-500 duration-300"
@@ -258,36 +280,61 @@
     <!-- AUTO CALC -->
     <script>
         let cartCount = 0;
+        function selectColor(element) {
+    // Loại bỏ lớp được chọn trước đó
+     document.querySelectorAll(".color").forEach(color => {
+
+        
+        color.classList.remove("bg-red-500", "color-selected");
+    });
+
+    // Thêm lớp vào màu được chọn
+    element.classList.add("bg-red-500", "color-selected");
+}
 
         function addToCart() {
-            // Cập nhât con số trên giỏ hàng
-            cartCount++;
-            document.getElementById("cart-count").innerText = cartCount;
+    // Lấy thông tin sản phẩm
+    const productImage = document.querySelector(".main-image img")?.src || "";
+    const productName = document.querySelector(".product-name")?.innerText || "";
+    const productPrice = document.querySelector(".product-price")?.innerText.split("\n")[1]?.trim() || "";
 
-            // Lấy thông tin sản phẩm
-            const productImage = document.querySelector(".main-image img").src;
-            const productName = document.querySelector(".product-name").innerText;
-            const productPrice = document
-                .querySelector(".product-price")
-                .innerText.split("\n")[1]
-                .trim();
-            const selectedColorElement =
-                document.querySelector(".color.bg-red-500") ||
-                document.querySelector(".color-selected");
-            const selectedColor = selectedColorElement ?
-                selectedColorElement.getAttribute("data-color") :
-                "";
-            const selectedSizeElement = document.querySelector(
-                'input[name="size"]:checked'
-            );
-            const selectedSize = selectedSizeElement ? selectedSizeElement.value : "";
+    // Lấy phần tử màu sắc được chọn
+    const selectedColorElement = document.querySelector(".color.bg-red-500") || 
+                                  document.querySelector(".color.color-selected");
+    const selectedColor = selectedColorElement
+        ? selectedColorElement.getAttribute("data-color")
+        : null;
 
-            // Kiểm tra nếu không chọn màu hoặc kích thước
-            if (!selectedColor || !selectedSize) {
-                alert("Please select a color and size.");
-                return;
-            }
+    // Kiểm tra nếu không có màu sắc được chọn
+    if (!selectedColor) {
+        alert("Please select a color.");
+        return;
+    }
 
+    // Lấy kích thước đã chọn
+    const selectedSizeElement = document.querySelector('input[name="size"]:checked');
+    const selectedSize = selectedSizeElement ? selectedSizeElement.value : null;
+
+    // Kiểm tra nếu không có kích thước được chọn
+    if (!selectedSize) {
+        alert("Please select a size.");
+        return;
+    }
+
+    // Cập nhật giỏ hàng
+    cartCount++;
+    document.getElementById("cart-count").innerText = cartCount;
+
+    console.log("Product added to cart:", {
+        productImage,
+        productName,
+        productPrice,
+        selectedColor,
+        selectedSize,
+    });
+
+
+   
             // Tạo phần tử mới cho sản phẩm trong giỏ hàng
             const productContainer = document.getElementById("productContainer");
             const productElement = document.createElement("div");
@@ -322,6 +369,7 @@
             // Mở giỏ hàng
             toggleDrawer();
         }
+
 
         function deleteProduct(element) {
             // Xóa sản phẩm khỏi giỏ hàng

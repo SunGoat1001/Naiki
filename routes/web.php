@@ -4,6 +4,7 @@ use App\Http\Controllers\DetailsController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\NewArrivalsController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -19,7 +20,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomepageController::class, 'index'])->name('homepage');
-
 Route::get('/details/{id}', [DetailsController::class, 'show']);
 
 Route::get('/newarrivals', [NewArrivalsController::class, 'index'])->name('new-arrivals.index');
