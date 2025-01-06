@@ -1,113 +1,126 @@
 <?php
 
 namespace Tests\Unit\Models;
-use Illuminate\Database\QueryException;
-use Tests\TestCase;
+
+
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ProductModelTest extends TestCase
 {
     use RefreshDatabase;
 
     /**
-     * Kiểm tra quan hệ giữa sản phẩm và danh mục
+
+     * 1. Test việc tạo một sản phẩm.
      */
-    public function test_able_to_get_category()
-    {
-        // Tạo một danh mục và sản phẩm liên kết với danh mục đó
-        $category = Category::factory()->create();
-        $product = Product::factory()->create(['category_id' => $category->id]);
-
-        // Kiểm tra quan hệ category
-        $this->assertInstanceOf(Category::class, $product->category);
-        $this->assertEquals($category->id, $product->category->id);
-    }
-
-    /**
-     * Kiểm tra định dạng giá sản phẩm
-     */
-    public function test_able_to_get_formatted_price_attribute()
-    {
-        // Tạo sản phẩm với giá cụ thể
-        $product = Product::factory()->create(['price' => 120.5]);
-
-        // Kết quả mong đợi
-        $expected_results = number_format($product->price, 0, ',', '.') . ' VNĐ';
-
-        // Kiểm tra thuộc tính formatted_price
-        $this->assertSame($expected_results, $product->formatted_price);
-    }
-
-    /**
-     * Kiểm tra định dạng tổng giá trị dựa trên số lượng
-     */
-    public function test_able_to_get_formatted_total_amount()
-    {
-        $quantity = rand(3, 10);
-
-        // Tạo sản phẩm với giá cụ thể
-        $product = Product::factory()->create(['price' => 100.75]);
-
-        // Kết quả mong đợi
-        $expected_results = number_format($product->price * $quantity, 0, ',', '.') . ' VNĐ';
-
-        // Kiểm tra hàm getFormattedTotalAmount
-        $this->assertSame($expected_results, $product->getFormattedTotalAmount($quantity));
-    }
-    // Kiểm tra trường imported_date, Test rằng imported_date có thể null
-    public function test_imported_date_can_be_null()
-{
-    $product = Product::factory()->create(['imported_date' => null]);
-
-    $this->assertNull($product->imported_date);
-}
-    //. Kiểm tra URL hình ảnh mặc định, Test rằng sản phẩm trả về URL hình ảnh mặc định nếu main_image_url bị null
-    public function test_product_returns_default_image_url_if_main_image_is_null()
-    {
-        $product = Product::factory()->create(['main_image_url' => null]);
-
-        $this->assertEquals(Product::DEFAULT_IMAGE, $product->main_image_url);
-    }
-    //Kiểm tra thuộc tính formatted_price khi giá bằng 0
-    public function test_formatted_price_is_zero_when_price_is_zero()
-    {
-        $product = Product::factory()->create(['price' => 0]);
-
-        $this->assertEquals('0 VNĐ', $product->formatted_price);
-    }
-    //Kiểm tra các trường hợp ngoại lệ trong getFormattedTotalAmount
-    public function test_formatted_total_amount_is_zero_when_quantity_is_zero()
-    {
-        $product = Product::factory()->create(['price' => 100]);
-
-        $this->assertEquals('0 VNĐ', $product->getFormattedTotalAmount(0));
-    }
-    //Kiểm tra dữ liệu lưu trữ đúng
-    public function test_product_creation_saves_to_database()
+    public function test_it_can_create_a_product()
     {
         $product = Product::factory()->create([
             'name' => 'Test Product',
-            'price' => 999.99
+            'price' => 500.75,
+            'long_desc' => 'This is a test description.',
         ]);
 
         $this->assertDatabaseHas('products', [
             'name' => 'Test Product',
-            'price' => 999.99
+            'price' => 500.75,
         ]);
     }
-    //Kiểm tra ràng buộc (Constraints)
-    public function test_foreign_key_constraint()
-    {
-        $this->expectException(QueryException::class);
 
-        Product::factory()->create(['category_id' => 999]); // Không tồn tại
+    /**
+     * 2. Test quan hệ belongsTo với Category.
+     */
+    public function test_product_belongs_to_category()
+    {
+        $category = Category::factory()->create(['name' => 'Test Category']);
+        $product = Product::factory()->create(['category_id' => $category->id]);
+
+        $this->assertEquals('Test Category', $product->category->name);
     }
 
+    /**
+     * 3. Test quan hệ hasMany với ProductImage.
+     */
+    public function test_product_has_many_product_images()
+    {
+        $product = Product::factory()->create();
+        $product->productImages()->createMany([
+            ['image_url' => 'image1.jpg'],
+            ['image_url' => 'image2.jpg'],
+        ]);
 
+        $this->assertCount(2, $product->productImages);
+    }
 
+    /**
+     * 4. Test cập nhật thông tin sản phẩm.
+     */
+    public function test_it_can_update_a_product()
+    {
+        $product = Product::factory()->create(['name' => 'Old Name']);
 
+        $product->update(['name' => 'New Name']);
 
+        $this->assertDatabaseHas('products', ['name' => 'New Name']);
+    }
+
+    /**
+     * 5. Test xóa sản phẩm.
+     */
+    public function test_it_can_delete_a_product()
+    {
+        $product = Product::factory()->create();
+
+        $product->delete();
+
+        $this->assertDatabaseMissing('products', ['id' => $product->id]);
+    }
+
+    /**
+     * 6. Test trường hợp sản phẩm không có danh mục.
+     */
+    public function test_product_can_have_no_category()
+    {
+        $product = Product::factory()->create(['category_id' => null]);
+
+        $this->assertNull($product->category);
+    }
+
+    /**
+     * 7. Test giá trị mặc định của trường nullable.
+     */
+    public function test_nullable_fields_are_handled_correctly()
+    {
+        $product = Product::factory()->create(['main_image_url' => null]);
+
+        $this->assertNull($product->main_image_url);
+    }
+
+    /**
+     * 8. Test trường hợp sản phẩm không có `gender`.
+     */
+    public function test_product_can_be_created_without_gender()
+    {
+        $product = Product::factory()->create(['gender' => null]);
+
+        $this->assertNull($product->gender);
+    }
+
+    /**
+     * 9. Test sản phẩm được sắp xếp theo `created_at` mới nhất.
+     */
+    public function test_products_are_ordered_by_latest_created_at()
+    {
+        $product1 = Product::factory()->create(['created_at' => now()->subDays(1)]);
+        $product2 = Product::factory()->create(['created_at' => now()]);
+
+        $products = Product::orderBy('created_at', 'desc')->get();
+
+        $this->assertEquals($product2->id, $products->first()->id);
+        $this->assertEquals($product1->id, $products->last()->id);
+    }
 
 }

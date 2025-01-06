@@ -14,6 +14,7 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
+
         $gender = $this->faker->randomElement(['Men', 'Women']);
         $category_id = $this->faker->randomElement([1, 2, 3, 4, 5, 6, 7]);
 
