@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -12,6 +13,7 @@ class ProductModelTest extends TestCase
     use RefreshDatabase;
 
     /**
+
      * 1. Test việc tạo một sản phẩm.
      */
     public function test_it_can_create_a_product()
@@ -120,4 +122,5 @@ class ProductModelTest extends TestCase
         $this->assertEquals($product2->id, $products->first()->id);
         $this->assertEquals($product1->id, $products->last()->id);
     }
+
 }

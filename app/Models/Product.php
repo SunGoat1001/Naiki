@@ -13,17 +13,22 @@ class Product extends Model
         'name',
         'price',
         'long_desc',
+        'gender',
         'main_image_url',
         'category_id',
         'imported_date',
     ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
+
     public function productImages()
+
+
     {
-        return $this->hasMany(ProductImage::class);
+        return $this->main_image_url ?? self::DEFAULT_IMAGE;
     }
 
    
