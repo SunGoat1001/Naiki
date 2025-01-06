@@ -7,8 +7,10 @@ use App\Models\Product;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
+
 class ProductFilter extends Component
 {
+
     public $categories = [];
 
     public $products = [];
@@ -116,9 +118,16 @@ class ProductFilter extends Component
 
         return $query->get();
     }
+    protected $listeners = ['filterChanged' => 'handleFilterChanged'];
+
+    public function handleFilterChanged()
+    {
+        $this->products = $this->getProducts();
+    }
 
     public function render()
     {
+        sleep(1);
         return view('livewire.components.product-filter', [
             'products' => $this->products,
             'categories' => $this->categories,

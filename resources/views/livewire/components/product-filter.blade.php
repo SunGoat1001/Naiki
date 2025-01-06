@@ -27,7 +27,7 @@
     </div>
 
     {{-- FILTER PANEL --}}
-    <section class="col h-full m-auto mb-10 mt-4 flex max-[431px]:m-0">
+    <sect class="col h-full m-auto mb-10 mt-4 flex max-[431px]:m-0">
         <div id="filterPanel" class="w-60 h-full max-[431px]:hidden hidden pr-4">
 
             <!-- FILTER BY CATEGORY -->
@@ -125,14 +125,21 @@
             </div>
 
         </div>
+    
+    <!-- Hiển thị overlay loading khi Livewire đang xử lý -->
+    <div wire:loading.class="blur-overlay"></div>
 
+    <!-- Biểu tượng loading -->
+    <div wire:loading.delay class="loader"></div>
         <!-- Product -->
         <div id="productContainer"
-            class="w-full h-full mb-20 max-[431px]:m-0 max-[431px]:ml-3 grid grid-cols-4 gap-3 max-[431px]:grid-cols-1">
+            class="w-full h-full mb-20 max-[431px]:m-0 max-[431px]:ml-3 grid grid-cols-4 gap-3 max-[431px]:grid-cols-1"
+            wire:loading.class="opacity-50">
             @foreach ($products as $product)
                 <x-product-card-items :product="$product" />
             @endforeach
         </div>
+   
     </section>
 
     <!-- Filter hidden -->
@@ -151,9 +158,39 @@
                     filterText.textContent = 'SHOW FILTERS';
                 }
             });
+            document.addEventListener('livewire:loading', () => {
+    const container = document.querySelector('#productContainer');
+    if (container) {
+        container.classList.add('opacity-50');
+    }
+});
+
+document.addEventListener('livewire:loaded', () => {
+    const container = document.querySelector('#productContainer');
+    if (container) {
+        container.classList.remove('opacity-50');
+    }
+});
+
         });
     </script>
+<style>
+    .loader {
 
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
     <!-- Accordion hidden -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
