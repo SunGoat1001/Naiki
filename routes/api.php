@@ -26,17 +26,17 @@ Route::prefix('v1')->group(function () {
 });
 
 Route::get('/test-slow-query', function () {
-    DB::select('SELECT SLEEP(1)'); // Truy vấn này sẽ dừng trong 2 giây (2000ms)
+    DB::select('SELECT SLEEP(1)');
 
     return response()->json(['message' => 'Slow query executed']);
 });
 Route::get('/slow-request', function () {
-    sleep(2); // Độ trễ 2 giây
+    sleep(2);
 
     return 'Slow request!';
 });
 Route::get('/slow-outgoing', function () {
-    \Illuminate\Support\Facades\Http::get('https://httpbin.org/delay/2'); // Yêu cầu HTTP chậm 2 giây
+    \Illuminate\Support\Facades\Http::get('https://httpbin.org/delay/2');
 
     return 'Slow outgoing request!';
 });
