@@ -54,7 +54,7 @@
     </div>
 
     {{-- FILTER PANEL --}}
-    <section class="col h-full m-auto mt-4 flex max-[431px]:m-0">
+    <section class="col h-full m-auto p-2 flex max-[431px]:m-0">
         <div id="filterPanel" class="w-60 h-full max-[431px]:hidden hidden pr-4">
 
             <!-- FILTER BY CATEGORY -->
@@ -159,7 +159,7 @@
         <div wire:loading.delay class="loader"></div>
         <!-- Product -->
         <div id="productContainer"
-            class="w-full h-full mb-20 max-[431px]:m-0 max-[431px]:ml-3 grid grid-cols-4 gap-3 max-[431px]:grid-cols-1"
+            class="w-full h-full mb-20 max-[431px]:m-0 max-[431px]:ml-3 grid grid-cols-4 gap-8 max-[431px]:grid-cols-1"
             wire:loading.class="opacity-50">
             @foreach ($products as $product)
                 <x-product-card-items :product="$product" />
