@@ -26,7 +26,7 @@
     </style>
 </head>
 
-<body class="overflow-x-hidden pt-16">
+<body class="overflow-x-hidden pt-16 bg-[#F7F6F3]">
 
     <x-header />
 
