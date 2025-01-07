@@ -76,6 +76,13 @@ class ProductFilter extends Component
         $this->products = $this->getProducts();
     }
 
+    protected $listeners = ['filterChanged' => 'handleFilterChanged'];
+
+    public function handleFilterChanged()
+    {
+        $this->products = $this->getProducts();
+    }
+
     private function getProducts()
     {
         $query = Product::query();
@@ -148,6 +155,7 @@ class ProductFilter extends Component
 
     public function render()
     {
+        sleep(1);
         return view('livewire.components.product-filter', [
             'products' => $this->products,
             'categories' => $this->categories,
