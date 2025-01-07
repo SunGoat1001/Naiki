@@ -1,13 +1,12 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DetailsController;
 use App\Http\Controllers\HomepageController;
-use App\Http\Controllers\NewArrivalsController;
 use App\Http\Controllers\ManController;
+use App\Http\Controllers\NewArrivalsController;
 use App\Http\Controllers\WomenController;
-use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -19,19 +18,20 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::middleware('throttle:60,1')->group(function () {
+    Route::get('/', [HomepageController::class, 'index'])->name('homepage');
 
-Route::get('/', [HomepageController::class, 'index'])->name('homepage');
+    Route::get('/details/{id}', [DetailsController::class, 'show']);
 
-Route::get('/details/{id}', [DetailsController::class, 'show']);
+    Route::get('/newarrivals', [NewArrivalsController::class, 'index'])->name('new-arrivals.index');
 
-Route::get('/newarrivals', [NewArrivalsController::class, 'index'])->name('new-arrivals.index');
+    Route::get('/man', [ManController::class, 'index'])->name('man.index');
 
-Route::get('/man', [ManController::class, 'index'])->name('man.index');
+    Route::get('/women', [WomenController::class, 'index'])->name('women.index');
 
-Route::get('/women', [WomenController::class, 'index'])->name('women.index');
-
-Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+    Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
