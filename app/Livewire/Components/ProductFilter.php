@@ -2,15 +2,18 @@
 
 namespace App\Livewire\Components;
 
-use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ProductFilter extends Component
 {
-    public $categories = [];
+    use WithPagination;
 
     public $products = [];
+
+    public $categories = [];
 
     public $sortBy = 'relevance';
 
@@ -30,33 +33,33 @@ class ProductFilter extends Component
 
     public function updatedSelectedPriceRanges()
     {
-        $this->products = $this->getProducts();
+        $this->resetPage(); // Reset pagination when filter changes
     }
 
     public function updatedSelectedGenders()
     {
-        $this->products = $this->getProducts();
+        $this->resetPage();
     }
 
     public function updatedSelectedSizes()
     {
-        $this->products = $this->getProducts();
+        $this->resetPage();
     }
 
     public function updatedSelectedColors() // Add this method
     {
-        $this->products = $this->getProducts();
+        $this->resetPage();
     }
 
     public function handleSearch()
     {
         $this->searchTerm = $this->search;
-        $this->products = $this->getProducts();
+        $this->resetPage();
     }
 
     public function mount()
     {
-        $this->categories = Category::all();
+        $this->categories = Cache::get('categories');
         $this->selectedCategory = request('category');
         $this->selectedPriceRanges = [];
         $this->selectedGenders = request('selectedGenders', []);
@@ -67,13 +70,13 @@ class ProductFilter extends Component
 
     public function updatedSortBy()
     {
-        $this->products = $this->getProducts();
+        $this->resetPage();
     }
 
     public function selectCategory($categoryId)
     {
         $this->selectedCategory = $categoryId;
-        $this->products = $this->getProducts();
+        $this->resetPage();
     }
 
     protected $listeners = ['filterChanged' => 'handleFilterChanged'];
@@ -124,8 +127,12 @@ class ProductFilter extends Component
         }
 
         // Gender filter
-        if ($this->selectedGenders) {
-            $query->where('gender', $this->selectedGenders);
+        if (! empty($this->selectedGenders)) {
+            $query->whereIn('gender', $this->selectedGenders);
+        }
+
+        if ($this->selectedSizes) {
+            $query->where('size', $this->selectedSizes);
         }
 
         if ($this->selectedSizes) {
@@ -150,14 +157,15 @@ class ProductFilter extends Component
             }
         }
 
-        return $query->get();
+        return $query->paginate(32);
     }
 
     public function render()
     {
         sleep(1);
+
         return view('livewire.components.product-filter', [
-            'products' => $this->products,
+            'products' => $this->getProducts(),
             'categories' => $this->categories,
         ]);
     }
