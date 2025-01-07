@@ -24,7 +24,9 @@ class ProductFactory extends Factory
             'gender' => $gender,
             'main_image_url' => $this->faker->imageUrl(), // URL hình ảnh ngẫu nhiên
             'category_id' => $category_id, // Quan hệ sẽ được thiết lập khi gọi từ factory cha
-            'imported_date' => now(), // Ngày nhập
+            'imported_date' => $this->faker->date(), // Ngày nhập
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }
