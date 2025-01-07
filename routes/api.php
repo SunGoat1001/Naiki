@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,4 +17,26 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('v1')->group(function () {
+    Route::apiResource('categories', \App\Http\Controllers\API\CategoryController::class);
+    Route::apiResource('products', \App\Http\Controllers\API\ProductController::class);
+
+});
+
+Route::get('/test-slow-query', function () {
+    DB::select('SELECT SLEEP(1)');
+
+    return response()->json(['message' => 'Slow query executed']);
+});
+Route::get('/slow-request', function () {
+    sleep(2);
+
+    return 'Slow request!';
+});
+Route::get('/slow-outgoing', function () {
+    \Illuminate\Support\Facades\Http::get('https://httpbin.org/delay/2');
+
+    return 'Slow outgoing request!';
 });

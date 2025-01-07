@@ -92,6 +92,10 @@ return [
             'driver' => 'octane',
         ],
 
+        'ttl' => [
+            'product_cache' => 600,
+            'category_cache' => 3600,
+        ],
     ],
 
     /*
