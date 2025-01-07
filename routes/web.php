@@ -18,8 +18,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::middleware('throttle:60,1')->group(function () {
-    Route::get('/', [HomepageController::class, 'index'])->name('homepage');
+Route::middleware(['throttle:60,1', 'rate.limit'])->group(function () {
+    Route::get('/', [HomepageController::class, 'index'])
+    ->name('homepage')
+    ->middleware('cache.headers:public;max_age=600;etag');
 
     Route::get('/details/{id}', [DetailsController::class, 'show']);
 
