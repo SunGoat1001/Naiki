@@ -15,5 +15,5 @@
         </div>
     </div>
 
-    <livewire:components.product-filter :categories="$categories" :products="$products" />
+    <livewire:components.product-filter />
 </x-layout>
