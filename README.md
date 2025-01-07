@@ -1,4 +1,4 @@
-# Shoes Website TuyenTien
+# Naiki
 
 ![Home page screenshot](./WebOverview.png)
 
