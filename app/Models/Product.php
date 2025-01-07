@@ -28,6 +28,11 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function variants()
+    {
+        return $this->hasMany(ProductVariant::class);
+    }
+
     /**
      * Format giá thành chuỗi với định dạng tiền tệ.
      *

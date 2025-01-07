@@ -4,7 +4,6 @@ namespace App\Livewire\Components;
 
 use App\Models\Category;
 use App\Models\Product;
-use Livewire\Attributes\Url;
 use Livewire\Component;
 
 class ProductFilter extends Component
@@ -23,9 +22,11 @@ class ProductFilter extends Component
 
     public $selectedPriceRanges = [];
 
-    #[Url]
     public $selectedGenders = [];
 
+    public $selectedSizes = [];
+
+    public $selectedColors = [];
 
     public function updatedSelectedPriceRanges()
     {
@@ -33,6 +34,16 @@ class ProductFilter extends Component
     }
 
     public function updatedSelectedGenders()
+    {
+        $this->products = $this->getProducts();
+    }
+
+    public function updatedSelectedSizes()
+    {
+        $this->products = $this->getProducts();
+    }
+
+    public function updatedSelectedColors() // Add this method
     {
         $this->products = $this->getProducts();
     }
@@ -49,6 +60,8 @@ class ProductFilter extends Component
         $this->selectedCategory = request('category');
         $this->selectedPriceRanges = [];
         $this->selectedGenders = request('selectedGenders', []);
+        $this->selectedSizes = request('selectedSizes', []);
+        $this->selectedColors = request('selectedColors', []);
         $this->products = $this->getProducts();
     }
 
@@ -67,8 +80,20 @@ class ProductFilter extends Component
     {
         $query = Product::query();
 
+        // Join with product_variants table for size filtering
+        if ($this->selectedSizes) {
+            $query->join('product_variants', 'products.id', '=', 'product_variants.product_id')
+                ->whereIn('product_variants.size', $this->selectedSizes);
+        }
+
+        // Color filter
+        if ($this->selectedColors) {
+            $query->join('product_variants', 'products.id', '=', 'product_variants.product_id')
+                ->whereIn('product_variants.color', $this->selectedColors);
+        }
+
         // Price range filter
-        if (!empty($this->selectedPriceRanges)) {
+        if (! empty($this->selectedPriceRanges)) {
             $query->where(function ($q) {
                 foreach ($this->selectedPriceRanges as $range) {
                     switch ($range) {
@@ -88,12 +113,16 @@ class ProductFilter extends Component
 
         // Other filters
         if ($this->searchTerm) {
-            $query->where('name', 'like', '%' . trim($this->searchTerm) . '%');
+            $query->where('name', 'like', '%'.trim($this->searchTerm).'%');
         }
 
         // Gender filter
         if ($this->selectedGenders) {
             $query->where('gender', $this->selectedGenders);
+        }
+
+        if ($this->selectedSizes) {
+            $query->where('size', $this->selectedSizes);
         }
 
         if ($this->selectedCategory) {
