@@ -92,24 +92,11 @@
                     <i class='bx bx-chevron-up text-3xl my-2'></i>
                 </div>
                 <div class="w-full h-auto text-lg font-medium mb-2 hidden">
-                    <input type="checkbox" id="black" name="black" value="Black" wire:model.live="selectedColors"
-                        class="h-6 w-6">
-                    <label for="black"> Black</label><br>
-                    <input type="checkbox" id="white" name="white" value="White" wire:model.live="selectedColors"
-                        class="h-6 w-6">
-                    <label for="white"> White</label><br>
-                    <input type="checkbox" id="red" name="red" value="Red" wire:model.live="selectedColors"
-                        class="h-6 w-6">
-                    <label for="red"> Red</label><br>
-                    <input type="checkbox" id="blue" name="blue" value="Blue"
-                        wire:model.live="selectedColors" class="h-6 w-6">
-                    <label for="blue"> Blue</label><br>
-                    <input type="checkbox" id="green" name="green" value="Green"
-                        wire:model.live="selectedColors" class="h-6 w-6">
-                    <label for="green"> Green</label><br>
-                    <input type="checkbox" id="yellow" name="yellow" value="Yellow"
-                        wire:model.live="selectedColors" class="h-6 w-6">
-                    <label for="yellow"> Yellow</label><br>
+                    @foreach (['Black', 'White', 'Red', 'Blue', 'Green', 'Yellow'] as $color)
+                        <input type="checkbox" id="{{ $color }}" name="{{ $color }}"
+                            value="{{ $color }}" wire:model.live="selectedColors" class="h-6 w-6">
+                        <label for="{{ $color }}"> {{ $color }}</label><br>
+                    @endforeach
                 </div>
             </div>
 
