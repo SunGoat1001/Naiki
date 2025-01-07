@@ -11,8 +11,6 @@ class ProductFilter extends Component
 {
     use WithPagination;
 
-    public $products = [];
-
     public $categories = [];
 
     public $sortBy = 'relevance';
@@ -31,24 +29,20 @@ class ProductFilter extends Component
 
     public $selectedColors = [];
 
-    public function updatedSelectedPriceRanges()
-    {
-        $this->resetPage(); // Reset pagination when filter changes
-    }
+    protected $listeners = ['filterChanged' => 'handleFilterChanged'];
 
-    public function updatedSelectedGenders()
+    // Combined update method for all filters
+    public function updated($propertyName)
     {
-        $this->resetPage();
-    }
-
-    public function updatedSelectedSizes()
-    {
-        $this->resetPage();
-    }
-
-    public function updatedSelectedColors() // Add this method
-    {
-        $this->resetPage();
+        if (in_array($propertyName, [
+            'selectedPriceRanges',
+            'selectedGenders',
+            'selectedSizes',
+            'selectedColors',
+            'sortBy',
+        ])) {
+            $this->resetPage();
+        }
     }
 
     public function handleSearch()
@@ -65,12 +59,6 @@ class ProductFilter extends Component
         $this->selectedGenders = request('selectedGenders', []);
         $this->selectedSizes = request('selectedSizes', []);
         $this->selectedColors = request('selectedColors', []);
-        $this->products = $this->getProducts();
-    }
-
-    public function updatedSortBy()
-    {
-        $this->resetPage();
     }
 
     public function selectCategory($categoryId)
@@ -79,27 +67,28 @@ class ProductFilter extends Component
         $this->resetPage();
     }
 
-    protected $listeners = ['filterChanged' => 'handleFilterChanged'];
-
     public function handleFilterChanged()
     {
-        $this->products = $this->getProducts();
+        $this->resetPage();
     }
 
     private function getProducts()
     {
         $query = Product::query();
 
-        // Join with product_variants table for size filtering
-        if ($this->selectedSizes) {
+        // Join with product_variants table only once if needed
+        if ($this->selectedSizes || $this->selectedColors) {
             $query->join('product_variants', 'products.id', '=', 'product_variants.product_id')
-                ->whereIn('product_variants.size', $this->selectedSizes);
-        }
+                ->select('products.*')
+                ->distinct(); // Prevent duplicate products
 
-        // Color filter
-        if ($this->selectedColors) {
-            $query->join('product_variants', 'products.id', '=', 'product_variants.product_id')
-                ->whereIn('product_variants.color', $this->selectedColors);
+            if ($this->selectedSizes) {
+                $query->whereIn('product_variants.size', $this->selectedSizes);
+            }
+
+            if ($this->selectedColors) {
+                $query->whereIn('product_variants.color', $this->selectedColors);
+            }
         }
 
         // Price range filter
@@ -108,47 +97,40 @@ class ProductFilter extends Component
                 foreach ($this->selectedPriceRanges as $range) {
                     switch ($range) {
                         case 'under100':
-                            $q->orWhereBetween('price', [0, 100]);
+                            $q->orWhereBetween('products.price', [0, 100]);
                             break;
                         case 'between100and200':
-                            $q->orWhereBetween('price', [100, 200]);
+                            $q->orWhereBetween('products.price', [100, 200]);
                             break;
                         case 'over200':
-                            $q->orWhere('price', '>', 200);
+                            $q->orWhere('products.price', '>', 200);
                             break;
                     }
                 }
             });
         }
 
-        // Other filters
+        // Search filter
         if ($this->searchTerm) {
-            $query->where('name', 'like', '%'.trim($this->searchTerm).'%');
+            $query->where('products.name', 'like', '%'.trim($this->searchTerm).'%');
         }
 
         // Gender filter
         if (! empty($this->selectedGenders)) {
-            $query->whereIn('gender', $this->selectedGenders);
+            $query->whereIn('products.gender', $this->selectedGenders);
         }
 
-        if ($this->selectedSizes) {
-            $query->where('size', $this->selectedSizes);
-        }
-
-        if ($this->selectedSizes) {
-            $query->where('size', $this->selectedSizes);
-        }
-
+        // Category filter
         if ($this->selectedCategory) {
-            $query->where('category_id', $this->selectedCategory);
+            $query->where('products.category_id', $this->selectedCategory);
         }
 
         // Sorting
         if ($this->sortBy && $this->sortBy !== 'relevance') {
             $sortMap = [
-                'lowestPrice' => ['price' => 'asc'],
-                'highestPrice' => ['price' => 'desc'],
-                'lastest' => ['imported_date' => 'desc'],
+                'lowestPrice' => ['products.price' => 'asc'],
+                'highestPrice' => ['products.price' => 'desc'],
+                'lastest' => ['products.imported_date' => 'desc'],
             ];
 
             if (isset($sortMap[$this->sortBy])) {
@@ -162,8 +144,6 @@ class ProductFilter extends Component
 
     public function render()
     {
-        sleep(1);
-
         return view('livewire.components.product-filter', [
             'products' => $this->getProducts(),
             'categories' => $this->categories,
