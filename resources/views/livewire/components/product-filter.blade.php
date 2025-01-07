@@ -54,7 +54,7 @@
     </div>
 
     {{-- FILTER PANEL --}}
-    <section class="col h-full m-auto mb-10 mt-4 flex max-[431px]:m-0">
+    <section class="col h-full m-auto mt-4 flex max-[431px]:m-0">
         <div id="filterPanel" class="w-60 h-full max-[431px]:hidden hidden pr-4">
 
             <!-- FILTER BY CATEGORY -->
@@ -166,6 +166,9 @@
             @endforeach
         </div>
     </section>
+    <div class="flex justify-center mb-4">
+        {{ $products->links() }}
+    </div>
 
     <!-- Filter hidden -->
     <script>
