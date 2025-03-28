@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Components;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
@@ -53,7 +54,8 @@ class ProductFilter extends Component
 
     public function mount()
     {
-        $this->categories = Cache::get('categories');
+        // $this->categories = Cache::get('categories');
+        $this->categories = Category::all();
         $this->selectedCategory = request('category');
         $this->selectedPriceRanges = [];
         $this->selectedGenders = request('selectedGenders', []);

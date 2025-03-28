@@ -54,3 +54,77 @@ https://sungoat1001.github.io/TuyenTienShoes/
 ## Video demo
 
 [![Watch the video](TienTuyenShoes.png)](TienTuyenShoes%20-%20Google%20Chrome%20-%201%20July%202024.mp4)
+
+## Setup Instructions
+
+1. **Clone the Repository**
+
+```bash
+git clone https://github.com/SunGoat1001/Naiki
+cd Naiki
+```
+
+2. **Install Dependencies**
+
+Install all required dependencies using npm:
+
+```bash
+npm install
+composer install
+```
+
+3. **Database Setup**
+
+-   Ensure MySQL is running on your machine.
+-   Create a new database called `apps`.
+-   Update the database configuration in environment variables (`.env` file).
+
+Create `.env` like `.env.example` and set the values. For example:
+
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=naiki
+DB_USERNAME=root
+DB_PASSWORD=lephamngoctien
+```
+
+4. **Run Database Migrations**
+
+Run the migrations to set up the database schema:
+
+```bash
+php artisan migrate
+```
+
+5. **Seed the Database**
+
+Populate the database with initial data:
+
+```bash
+php artisan db:seed
+```
+
+6. **Start the Server**
+
+Compile Front-End Assets
+
+```bash
+npm run dev
+```
+
+Start the Server
+
+```bash
+php artisan serve
+```
+
+### Reset Database
+
+To reset the database, you could run the following command to undo all migrations and re-run them.
+
+```bash
+php artisan migrate:refresh
+php artisan db:seed
+```
